@@ -210,3 +210,21 @@ export function sumarDigitosRecursivoSteps(num: number): number[] {
 export function sumarDigitos(num: number): number {
   return String(num).split('').reduce((a, b) => a + parseInt(b), 0);
 }
+
+export const interpretaciones: Record<number, string> = {
+  1: "El número 1 representa liderazgo e independencia.",
+  2: "El número 2 representa cooperación y diplomacia.",
+  3: "El número 3 representa creatividad y expresión.",
+  4: "El número 4 representa estabilidad y practicidad.",
+  5: "El número 5 representa libertad y cambio.",
+  6: "El número 6 representa responsabilidad y armonía.",
+  7: "El número 7 representa análisis y sabiduría.",
+  8: "El número 8 representa poder y abundancia.",
+  9: "El número 9 representa humanitarismo y compasión.",
+  11: "El número maestro 11 representa intuición elevada.",
+  22: "El número maestro 22 representa el constructor maestro."
+};
+
+export function obtenerInterpretacion(valorBase: number): string {
+    return interpretaciones[valorBase] || "Este número requiere interpretación especializada.";
+}

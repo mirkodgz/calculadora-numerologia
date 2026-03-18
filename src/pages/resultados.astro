@@ -93,23 +93,52 @@ if (token) {
 
     const valEsencia = vC + vV; // 6 + 10 = 16
 
-    resultados = {
+    
+    const calcValAndInterp = (compoundVal) => {
+        let finalValToReduce = compoundVal;
+        if (compoundVal > 9 && compoundVal !== 11 && compoundVal !== 22) {
+             finalValToReduce = sumarDigitosRecursivoSteps(compoundVal)[0];
+        }
+        const valToInterpret = (finalValToReduce == 11 || finalValToReduce == 22) ? finalValToReduce : sumarDigitosRecursivoSteps(finalValToReduce)[0];
+        
+        return {
+           familia: obtenerFamilia(valToInterpret),
+           desc: obtenerInterpretacion(valToInterpret)
+        };
+    };
+    
+    const almaV = analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original;
+    const almaInfo = calcValAndInterp(almaV);
+    const carInfo = calcValAndInterp(valCaracterEsencial);
+    const esenciaInfo = calcValAndInterp(valEsencia);
+    const caminoInfo = calcValAndInterp(valCaminoVida);
+    const misionInfo = calcValAndInterp(valMisionAdolescencia);
+    const misionInfInfo = calcValAndInterp(valorSimpleApellido + valorSimpleApellido2);
+    const cortoInfo = calcValAndInterp(valCrisisCorto);
+    const largoInfo = calcValAndInterp(valCrisisLargo);
+    
+    // For base blocks (dia, mes, etc.), it's just the simplified value unless 11/22
+    const getBaseInfo = (val) => {
+      let famObj = calcValAndInterp(val);
+      return famObj;
+    };
 
-      alma: formatResult(analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original), // 5 -> 23
-      caracterEsencial: formatResult(valCaracterEsencial),
-      esencia: formatResult(valEsencia),
-      caminoVida: formatResult(valCaminoVida),
-      misionAdolescencia: formatResult(valMisionAdolescencia),
-      crisisCorto: formatResult(valCrisisCorto),
-      crisisLargo: formatResult(valCrisisLargo)
-      ,
+    resultados = {
+      alma: { num: formatResult(almaV), ...almaInfo },
+      caracterEsencial: { num: formatResult(valCaracterEsencial), ...carInfo },
+      esencia: { num: formatResult(valEsencia), ...esenciaInfo },
+      caminoVida: { num: formatResult(valCaminoVida), ...caminoInfo },
+      misionInfancia: { num: formatResult(valorSimpleApellido + valorSimpleApellido2), ...misionInfInfo },
+      misionAdolescencia: { num: formatResult(valMisionAdolescencia), ...misionInfo },
+      crisisCorto: { num: formatResult(valCrisisCorto), ...cortoInfo },
+      crisisLargo: { num: formatResult(valCrisisLargo), ...largoInfo },
       datosPersonales: {
-        nombre: { texto: payload.nombre, valor: formatResult(valorKabNombre), oculto: analisisNombre.total_multiplicado },
-        apellido1: { texto: payload.apellido, valor: formatResult(valorKabApellido), oculto: analisisApellido.total_multiplicado },
-        apellido2: hasApellido2 ? { texto: payload.segundo_apellido, valor: formatResult(valorKabApellido2), oculto: analisisApellido2.total_multiplicado } : null,
-        dia: { texto: String(analisisFecha.dia.original), valor: formatResult(diaV) },
-        mes: { texto: String(analisisFecha.mes.original), valor: formatResult(mesV) },
-        anio: { texto: payload.fecha_nacimiento.split('-')[0], valor: formatResult(anioV) }
+        nombre: { texto: payload.nombre, valor: formatResult(valorKabNombre), oculto: analisisNombre.total_multiplicado, info: getBaseInfo(valorSimpleNombre) },
+        apellido1: { texto: payload.apellido, valor: formatResult(valorKabApellido), oculto: analisisApellido.total_multiplicado, info: getBaseInfo(valorSimpleApellido) },
+        apellido2: hasApellido2 ? { texto: payload.segundo_apellido, valor: formatResult(valorKabApellido2), oculto: analisisApellido2.total_multiplicado, info: getBaseInfo(valorSimpleApellido2) } : null,
+        dia: { texto: String(analisisFecha.dia.original), valor: formatResult(diaV), info: getBaseInfo(diaV) },
+        mes: { texto: String(analisisFecha.mes.original), valor: formatResult(mesV), info: getBaseInfo(mesV) },
+        anio: { texto: payload.fecha_nacimiento.split('-')[0], valor: formatResult(anioV), info: getBaseInfo(anioV) }
       }
     };
   }
@@ -139,14 +168,14 @@ if (token) {
         <!-- DATOS PERSONALES -->
         <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Datos Personales</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <BaseDataCard titulo={resultados.datosPersonales.nombre.texto} subtitulo="Nombre" numero={resultados.datosPersonales.nombre.valor} oculto={resultados.datosPersonales.nombre.oculto} />
-          <BaseDataCard titulo={resultados.datosPersonales.apellido1.texto} subtitulo="1° Apellido" numero={resultados.datosPersonales.apellido1.valor} oculto={resultados.datosPersonales.apellido1.oculto} />
+          <BaseDataCard titulo={resultados.datosPersonales.nombre.texto} subtitulo="Nombre" numero={resultados.datosPersonales.nombre.valor} oculto={resultados.datosPersonales.nombre.oculto} familia={resultados.datosPersonales.nombre.info.familia} descripcion={resultados.datosPersonales.nombre.info.desc} />
+          <BaseDataCard titulo={resultados.datosPersonales.apellido1.texto} subtitulo="1° Apellido" numero={resultados.datosPersonales.apellido1.valor} oculto={resultados.datosPersonales.apellido1.oculto} familia={resultados.datosPersonales.apellido1.info.familia} descripcion={resultados.datosPersonales.apellido1.info.desc} />
           {#if resultados.datosPersonales.apellido2}
-            <BaseDataCard titulo={resultados.datosPersonales.apellido2.texto} subtitulo="2° Apellido" numero={resultados.datosPersonales.apellido2.valor} oculto={resultados.datosPersonales.apellido2.oculto} />
+            <BaseDataCard titulo={resultados.datosPersonales.apellido2.texto} subtitulo="2° Apellido" numero={resultados.datosPersonales.apellido2.valor} oculto={resultados.datosPersonales.apellido2.oculto} familia={resultados.datosPersonales.apellido2.info.familia} descripcion={resultados.datosPersonales.apellido2.info.desc} />
           {/if}
-          <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} />
-          <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} />
-          <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} />
+          <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} familia={resultados.datosPersonales.dia.info.familia} descripcion={resultados.datosPersonales.dia.info.desc} />
+          <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} familia={resultados.datosPersonales.mes.info.familia} descripcion={resultados.datosPersonales.mes.info.desc} />
+          <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} familia={resultados.datosPersonales.anio.info.familia} descripcion={resultados.datosPersonales.anio.info.desc} />
         </div>
 
         <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Cálculos Kármicos y Compuestos</h3>
@@ -154,43 +183,50 @@ if (token) {
 
           <ResultadosCard 
             titulo="Número de Alma" 
-            numero={resultados.alma} 
+            numero={resultados.alma.num} familia={resultados.alma.familia} descripcion={resultados.alma.desc} 
             icono="🕊️"
             descripcion="El anhelo profundo de tu ser, cómo encuentras la paz interior y tu verdadera motivación vital."
           />
           <ResultadosCard 
             titulo="Carácter Esencial" 
-            numero={resultados.caracterEsencial} 
+            numero={resultados.caracterEsencial.num} familia={resultados.caracterEsencial.familia} descripcion={resultados.caracterEsencial.desc} 
             icono="🎭"
             descripcion="Cómo te perciben los demás a primera vista y la máscara social que proyectas al mundo."
           />
           <ResultadosCard 
             titulo="Esencia" 
-            numero={resultados.esencia} 
+            numero={resultados.esencia.num} familia={resultados.esencia.familia} descripcion={resultados.esencia.desc} 
             icono="🌟"
             descripcion="La síntesis de tu personalidad, tus talentos innatos y tu verdadera identidad cósmica."
           />
           <ResultadosCard 
             titulo="Camino de Vida" 
-            numero={resultados.caminoVida} 
+            numero={resultados.caminoVida.num} familia={resultados.caminoVida.familia} descripcion={resultados.caminoVida.desc} 
             icono="🛤️"
             descripcion="El destino trazado para ti, los retos principales y el aprendizaje fundamental en esta vida."
           />
           <ResultadosCard 
+            titulo="Misión Infancia" 
+            numero={resultados.misionInfancia.num} 
+            icono="🌱"
+            familia={resultados.misionInfancia.familia}
+            descripcion={resultados.misionInfancia.desc}
+          />
+          <ResultadosCard 
             titulo="Misión Adolescencia" 
-            numero={resultados.misionAdolescencia} 
+            numero={resultados.misionAdolescencia.num} familia={resultados.misionAdolescencia.familia} descripcion={resultados.misionAdolescencia.desc} 
             icono="🌱"
             descripcion="La energía y lecciones kármicas que desarrollaste durante tu juventud y primeros años."
           />
           <ResultadosCard 
             titulo="Crisis de Ciclo Corto" 
-            numero={resultados.crisisCorto} 
+            numero={resultados.crisisCorto.num} familia={resultados.crisisCorto.familia} descripcion={resultados.crisisCorto.desc} 
             icono="⚡"
             descripcion="El desafío constante en tu vida diaria y cómo superarlo con sabiduría y consciencia."
           />
           <ResultadosCard 
             titulo="Crisis de Ciclo Largo" 
-            numero={resultados.crisisLargo} 
+            numero={resultados.crisisLargo.num} familia={resultados.crisisLargo.familia} descripcion={resultados.crisisLargo.desc} 
             icono="⏳"
             descripcion="El gran reto kármico de fondo que deberás superar a lo largo de toda tu existencia."
           />
