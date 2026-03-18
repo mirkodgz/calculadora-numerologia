@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ResultadosCard from '../components/ResultadosCard.svelte';
 import { verifyNumerologyToken } from '../lib/jwt';
-import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos } from '../lib/numerology/calculator';
+import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos, sumarDigitosRecursivoSteps } from '../lib/numerology/calculator';
 // En un proyecto real, estas funciones de lógica avanzada (calcularBloqueConFamilias) estarían en calculator.ts
 // Las omitimos por brevedad para mostrar el flujo de SSR y JWT.
 
@@ -18,17 +18,39 @@ if (token) {
     authorized = true;
     userPayload = payload;
     
-    // Aquí ejecutaríamos la fórmula completa. 
-    // Por simplicidad en este borrador de diseño, ejecutamos el análisis base SSR:
     const analisisNombre = analizarNombre(payload.nombre, payload.idioma);
     const analisisApellido = analizarNombre(payload.apellido, payload.idioma);
+    // Asegurarse de lidiar con strings vacios del segundo apellido
+    const hasApellido2 = payload.segundo_apellido && payload.segundo_apellido.trim().length > 0;
+    const analisisApellido2 = hasApellido2 
+        ? analizarNombre(payload.segundo_apellido, payload.idioma) 
+        : { total_simple: 0, total_multiplicado: 0 };
+        
     const analisisFecha = analizarFecha(payload.fecha_nacimiento);
 
-    // Mapeo básico de demostración para las cartas de SSR
+    const formatResult = (num) => {
+      if (!num || isNaN(num)) return "0";
+      // Reverse is needed because sumarDigitosRecursivoSteps returns [22, 13, 4] for 4-13-22
+      const steps = sumarDigitosRecursivoSteps(num);
+      return steps.join('-');
+    };
+
+    const valorSimpleNombre = analisisNombre.total_simple || 0;
+    const valorSimpleApellido = analisisApellido.total_simple || 0;
+    const valorSimpleApellido2 = analisisApellido2.total_simple || 0;
+
+    const valorKabNombre = analisisNombre.total_multiplicado || 0;
+    const valorKabApellido = analisisApellido.total_multiplicado || 0;
+    const valorKabApellido2 = analisisApellido2.total_multiplicado || 0;
+
     resultados = {
-      esencia: analisisNombre.total_multiplicado_simplificado.valor + analisisApellido.total_multiplicado_simplificado.valor,
-      caminoVida: analisisFecha.total.valor,
-      alma: analisisFecha.dia.valor
+      alma: formatResult(analisisFecha.dia.original),
+      caracterEsencial: formatResult(valorKabNombre + valorKabApellido + valorKabApellido2),
+      esencia: formatResult(valorSimpleNombre + valorSimpleApellido + valorSimpleApellido2),
+      caminoVida: formatResult(analisisFecha.dia.original + analisisFecha.mes.original + analisisFecha.anio.original),
+      misionAdolescencia: formatResult(valorSimpleNombre + valorSimpleApellido),
+      crisisCorto: formatResult(analisisFecha.dia.original + analisisFecha.mes.original),
+      crisisLargo: formatResult(analisisFecha.mes.original + analisisFecha.anio.original)
     };
   }
 }
