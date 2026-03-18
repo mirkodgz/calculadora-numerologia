@@ -136,9 +136,9 @@ if (token) {
       crisisCorto: { num: formatResult(valCrisisCorto), ...cortoInfo },
       crisisLargo: { num: formatResult(valCrisisLargo), ...largoInfo },
       datosPersonales: {
-        nombre: { texto: payload.nombre, valor: formatResult(valorKabNombre), oculto: analisisNombre.total_multiplicado, info: getBaseInfo(valorSimpleNombre) },
-        apellido1: { texto: payload.apellido, valor: formatResult(valorKabApellido), oculto: analisisApellido.total_multiplicado, info: getBaseInfo(valorSimpleApellido) },
-        apellido2: hasApellido2 ? { texto: payload.segundo_apellido, valor: formatResult(valorKabApellido2), oculto: analisisApellido2.total_multiplicado, info: getBaseInfo(valorSimpleApellido2) } : null,
+        nombre: { texto: payload.nombre, valor: formatResult(analisisNombre.total_simple), oculto: sumarDigitos(analisisNombre.total_multiplicado), info: getBaseInfo(valorSimpleNombre) },
+        apellido1: { texto: payload.apellido, valor: formatResult(analisisApellido.total_simple), oculto: sumarDigitos(analisisApellido.total_multiplicado), info: getBaseInfo(valorSimpleApellido) },
+        apellido2: hasApellido2 ? { texto: payload.segundo_apellido, valor: formatResult(analisisApellido2.total_simple), oculto: sumarDigitos(analisisApellido2.total_multiplicado), info: getBaseInfo(valorSimpleApellido2) } : null,
         dia: { texto: String(analisisFecha.dia.original), valor: formatResult(diaV), info: getBaseInfo(diaV) },
         mes: { texto: String(analisisFecha.mes.original), valor: formatResult(mesV), info: getBaseInfo(mesV) },
         anio: { texto: payload.fecha_nacimiento.split('-')[0], valor: formatResult(anioV), info: getBaseInfo(anioV) }
