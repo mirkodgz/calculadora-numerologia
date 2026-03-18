@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Comfortaa", cursive, sans-serif;
+  --font-sans: "Figtree", sans-serif;
+  
+  --color-brand-primary: #B11252;
+  --color-brand-secondary: #e6b866;
+  --color-brand-bg: #f9f7f5;
+  --color-brand-text: #333333;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}

@@ -1,0 +1,46 @@
+---
+// UpsellCurso.astro
+---
+<section class="py-24 bg-[#1a120b] relative overflow-hidden text-center">
+  <!-- Decorative Glows -->
+  <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#B11252]/20 to-transparent rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#e6b866]/10 to-transparent rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+    <div class="mb-16">
+      <span class="text-[#e6b866] text-sm font-semibold tracking-widest uppercase mb-3 block">Curso de Fundamentos</span>
+      <h2 class="text-3xl md:text-5xl font-serif text-white mb-6">Aprende los Fundamentos de la Cábala</h2>
+      <p class="text-slate-400 font-sans text-lg font-medium max-w-2xl mx-auto leading-relaxed">
+        ¿Quieres profundizar en este conocimiento sagrado antes de interpretar tu cálculo completo? Te ofrecemos un curso estructurado en 9 módulos para comprender las bases ancestrales.
+      </p>
+    </div>
+
+    <!-- 9 Modules Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-16">
+      {
+        [
+          "Qué es la Cábala",
+          "El Árbol de la Vida",
+          "Árbol Personal",
+          "Las 10 Sefirot",
+          "Los 22 Senderos",
+          "Numerología Sagrada",
+          "Cálculos Básicos",
+          "Interpretación",
+          "Aplicación Práctica"
+        ].map((modulo, index) => (
+          <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center shadow-lg hover:bg-white/10 hover:border-[#e6b866]/30 hover:-translate-y-1 transition-all duration-300">
+            <span class="block text-[#e6b866] font-serif font-medium text-2xl mb-2 opacity-50">0{index + 1}</span>
+            <p class="text-white font-sans font-medium text-sm md:text-base tracking-wide uppercase">{modulo}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div>
+      <a href="https://sabiduriadealma.com/curso-basico-arbol-de-la-kabala" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e6b866] to-[#c29851] text-slate-900 font-serif font-semibold tracking-widest text-lg py-4 px-10 rounded-xl shadow-[0_10px_30px_rgba(230,184,102,0.3)] hover:shadow-[0_15px_40px_rgba(230,184,102,0.5)] transform hover:-translate-y-1 transition-all duration-300">
+        <span>📖 COMPRAR CURSO AHORA</span>
+      </a>
+    </div>
+  </div>
+</section>

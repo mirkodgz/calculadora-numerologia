@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ResultadosCard from '../components/ResultadosCard.svelte';
+import { verifyNumerologyToken } from '../lib/jwt';
+import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos } from '../lib/numerology/calculator';
+// En un proyecto real, estas funciones de lógica avanzada (calcularBloqueConFamilias) estarían en calculator.ts
+// Las omitimos por brevedad para mostrar el flujo de SSR y JWT.
+
+const token = Astro.url.searchParams.get('token');
+
+let authorized = false;
+let userPayload = null;
+let resultados = null;
+
+if (token) {
+  const payload = await verifyNumerologyToken(token);
+  if (payload) {
+    authorized = true;
+    userPayload = payload;
+    
+    // Aquí ejecutaríamos la fórmula completa. 
+    // Por simplicidad en este borrador de diseño, ejecutamos el análisis base SSR:
+    const analisisNombre = analizarNombre(payload.nombre, payload.idioma);
+    const analisisApellido = analizarNombre(payload.apellido, payload.idioma);
+    const analisisFecha = analizarFecha(payload.fecha_nacimiento);
+
+    // Mapeo básico de demostración para las cartas de SSR
+    resultados = {
+      esencia: analisisNombre.total_multiplicado_simplificado.valor + analisisApellido.total_multiplicado_simplificado.valor,
+      caminoVida: analisisFecha.total.valor,
+      alma: analisisFecha.dia.valor
+    };
+  }
+}
+---
+
+<Layout title="Resultados | Numerología Cabalística">
+  <main class="min-h-screen bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
+    
+    {!authorized ? (
+      <div class="max-w-md mx-auto bg-white p-10 rounded-2xl shadow-lg text-center">
+        <div class="text-red-500 text-5xl mb-4">🚫</div>
+        <h1 class="text-2xl font-serif text-gray-900 mb-4">Acceso Denegado</h1>
+        <p class="text-gray-600 mb-8 font-medium">Este enlace es inválido, ha expirado o no ha sido generado correctamente. Por favor, solicita un nuevo cálculo.</p>
+        <a href="/" class="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-black transition-colors">Volver a la Calculadora</a>
+      </div>
+    ) : (
+      <div class="max-w-5xl mx-auto">
+        <header class="text-center mb-16">
+          <h2 class="text-sm font-semibold text-amber-600 tracking-widest uppercase mb-3">Tu Mapa Personal</h2>
+          <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4 capitalize">Hola, {userPayload.nombre}</h1>
+          <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <ResultadosCard 
+            titulo="Número de Alma" 
+            numero={resultados.alma} 
+            icono="🕊️"
+            descripcion="El anhelo profundo de tu ser, cómo encuentras la paz interior y tu verdadera motivación vital."
+          />
+          <ResultadosCard 
+            titulo="Esencia" 
+            numero={resultados.esencia} 
+            icono="🌟"
+            descripcion="La máscara que perciben los demás, tu personalidad proyectada y forma de interactuar."
+          />
+          <ResultadosCard 
+            titulo="Camino de Vida" 
+            numero={resultados.caminoVida} 
+            icono="🛤️"
+            descripcion="El destino trazado para ti, los retos principales y el aprendizaje fundamental en esta encarnación."
+          />
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm p-8 text-center border-t-4 border-amber-400">
+          <h3 class="text-2xl font-serif text-gray-900 mb-4">¿Quieres profundizar en tus revelaciones?</h3>
+          <p class="text-gray-600 font-medium mb-8 max-w-3xl mx-auto">Tus números base son solo la punta del iceberg de tu Árbol de la Vida personal. Adquiere el estudio cabalístico completo para descifrar el mensaje secreto detrás de tu {userPayload.fecha_nacimiento}.</p>
+          <a href="https://sabiduriadealma.com/" target="_blank" class="inline-block border border-gray-900 text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium">Reservar Lectura Personal</a>
+        </div>
+      </div>
+    )}
+  </main>
+</Layout>

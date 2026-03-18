@@ -1,0 +1,40 @@
+---
+// Hero component mimicking the dark mystic banner
+---
+
+<div class="relative w-full min-h-[85vh] overflow-hidden bg-slate-950 flex flex-col items-center justify-center text-center px-4 sm:px-6">
+  <!-- Fondo Místico Espectacular -->
+  <div class="absolute inset-0 bg-[url('https://sabiduriadealma.com/wp-content/plugins/Numerologia/assets/image/Numerologia.png')] bg-cover bg-center bg-fixed opacity-50 scale-105 transform origin-center animate-[slowPan_30s_infinite_alternate]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-900/60 to-slate-950/95 mix-blend-multiply"></div>
+  <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#e6b866]/20 blur-[120px] rounded-full mix-blend-screen pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#B11252]/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none"></div>
+  
+  <div class="relative z-10 max-w-5xl mx-auto space-y-8 p-10 md:p-16 rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+    
+    <div class="inline-flex items-center gap-2 mb-2 border border-[#e6b866]/30 bg-[#e6b866]/10 px-6 py-2.5 rounded-full backdrop-blur-md shadow-[0_0_15px_rgba(230,184,102,0.15)]">
+      <span class="w-2 h-2 rounded-full bg-[#e6b866] animate-pulse"></span>
+      <span class="text-[#e6b866] text-xs font-sans tracking-[0.25em] uppercase font-semibold">Sabiduría de Alma</span>
+    </div>
+    
+    <h1 class="text-4xl md:text-5xl lg:text-6xl text-white font-serif tracking-tight leading-tight drop-shadow-lg max-w-4xl mx-auto">
+      Descubre Tu Mapa Numerológico con la <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f4d393] via-[#e6b866] to-[#c79a45] italic font-medium">Calculadora Cabalística Gratuita</span>
+    </h1>
+    
+    <div class="space-y-4 pt-2">
+      <p class="text-xl md:text-3xl text-slate-200 font-sans font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+        Descubre el Poder de Tu Nombre y Fecha de Nacimiento con la Numerología Cabalística
+      </p>
+      
+      <p class="text-base md:text-xl text-slate-300/90 font-sans font-medium max-w-2xl mx-auto leading-relaxed">
+        Una herramienta gratuita para revelar tu energía personal a través del lenguaje de los números
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes slowPan {
+    0% { transform: scale(1.05) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, 2%); }
+  }
+</style>
