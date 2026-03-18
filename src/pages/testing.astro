@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { signNumerologyToken } from '../lib/jwt';
+
+export const prerender = false;
+
+let errorMsg = '';
+
+if (Astro.request.method === 'POST') {
+  try {
+    const data = await Astro.request.formData();
+    const nombre = data.get('nombre')?.toString() || '';
+    const apellido = data.get('apellido')?.toString() || '';
+    const segundo_apellido = data.get('segundo_apellido')?.toString() || '';
+    const fecha_nacimiento = data.get('fecha_nacimiento')?.toString() || '';
+    const idioma = data.get('idioma')?.toString() || 'castellano';
+    const email = data.get('email')?.toString() || 'test@test.com';
+
+    if (!nombre || !apellido || !fecha_nacimiento) {
+      errorMsg = 'Faltan campos obligatorios. Llena Nombre, 1° Apellido y Fecha.';
+    } else {
+      const tokenPayload = {
+        nombre,
+        apellido,
+        segundo_apellido,
+        fecha_nacimiento,
+        idioma,
+        email,
+      };
+
+      const jwtToken = await signNumerologyToken(tokenPayload);
+
+      // REDIRECT INMEDIATO AL RESULTADO (Bypassing GHL)
+      return Astro.redirect(`/resultados?token=${jwtToken}`);
+    }
+  } catch (err: any) {
+    errorMsg = err.message || 'Error procesando prueba';
+  }
+}
+---
+
+<Layout title="TESTING RÁPIDO - Numerología">
+  <main class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl">
+      <h1 class="text-2xl font-bold text-center text-rose-600 mb-2">Entorno de Pruebas 🧪</h1>
+      <p class="text-sm text-gray-500 text-center mb-6">Genera resultados en 1 segundo sin pasar por GoHighLevel, sin correos ni suscripciones. Solo para desarrollo.</p>
+
+      {errorMsg && (
+        <div class="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm font-medium">
+          {errorMsg}
+        </div>
+      )}
+
+      <form method="POST" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+          <input type="text" name="nombre" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-primary" placeholder="Ej. Mirko" required value="Mirko" />
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">1° Apellido</label>
+            <input type="text" name="apellido" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-primary" placeholder="Ej. Rodriguez" required value="Dominguez" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">2° Apellido (Opcional)</label>
+            <input type="text" name="segundo_apellido" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-primary" placeholder="Ej. Guillen" value="Guillen" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Nacimiento</label>
+          <input type="date" name="fecha_nacimiento" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-primary" required value="1992-11-23" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Idioma Materno</label>
+          <select name="idioma" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-primary">
+            <option value="castellano">Castellano (Español)</option>
+            <option value="ingles">Inglés</option>
+            <option value="frances">Francés</option>
+            <option value="italiano">Italiano</option>
+            <option value="portugues">Portugués</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 px-4 rounded-lg hover:bg-black transition-colors shadow-md mt-6">
+          Generar y Mostrar Magic Link 👉
+        </button>
+      </form>
+    </div>
+  </main>
+</Layout>
