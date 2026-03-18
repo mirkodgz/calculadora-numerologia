@@ -52,6 +52,7 @@ if (token) {
           <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
         </header>
 
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <ResultadosCard 
             titulo="Número de Alma" 
@@ -60,16 +61,40 @@ if (token) {
             descripcion="El anhelo profundo de tu ser, cómo encuentras la paz interior y tu verdadera motivación vital."
           />
           <ResultadosCard 
+            titulo="Carácter Esencial" 
+            numero={resultados.caracterEsencial} 
+            icono="🎭"
+            descripcion="Cómo te perciben los demás a primera vista y la máscara social que proyectas al mundo."
+          />
+          <ResultadosCard 
             titulo="Esencia" 
             numero={resultados.esencia} 
             icono="🌟"
-            descripcion="La máscara que perciben los demás, tu personalidad proyectada y forma de interactuar."
+            descripcion="La síntesis de tu personalidad, tus talentos innatos y tu verdadera identidad cósmica."
           />
           <ResultadosCard 
             titulo="Camino de Vida" 
             numero={resultados.caminoVida} 
             icono="🛤️"
-            descripcion="El destino trazado para ti, los retos principales y el aprendizaje fundamental en esta encarnación."
+            descripcion="El destino trazado para ti, los retos principales y el aprendizaje fundamental en esta vida."
+          />
+          <ResultadosCard 
+            titulo="Misión Adolescencia" 
+            numero={resultados.misionAdolescencia} 
+            icono="🌱"
+            descripcion="La energía y lecciones kármicas que desarrollaste durante tu juventud y primeros años."
+          />
+          <ResultadosCard 
+            titulo="Crisis de Ciclo Corto" 
+            numero={resultados.crisisCorto} 
+            icono="⚡"
+            descripcion="El desafío constante en tu vida diaria y cómo superarlo con sabiduría y consciencia."
+          />
+          <ResultadosCard 
+            titulo="Crisis de Ciclo Largo" 
+            numero={resultados.crisisLargo} 
+            icono="⏳"
+            descripcion="El gran reto kármico de fondo que deberás superar a lo largo de toda tu existencia."
           />
         </div>
 
