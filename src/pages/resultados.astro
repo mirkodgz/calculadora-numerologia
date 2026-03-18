@@ -89,14 +89,169 @@ if (token) {
     const carEsencialFinal = sumarDigitosRecursivoSteps(valCaracterEsencial);
     const carEsencialVal = carEsencialFinal.length > 1 ? carEsencialFinal[1] : carEsencialFinal[0]; // 15... wait 6? 
 
-    // Because WordPress used "valor" which is the reduced single digit (unless 11/22)
     // Actually: 
     const vC = valCaracterEsencial > 9 && valCaracterEsencial !== 11 && valCaracterEsencial !== 22 ? sumarDigitosRecursivoSteps(valCaracterEsencial)[0] : valCaracterEsencial;
     const vV = valCaminoVida > 9 && valCaminoVida !== 11 && valCaminoVida !== 22 ? sumarDigitosRecursivoSteps(valCaminoVida)[0] : valCaminoVida;
 
     const valEsencia = vC + vV; // 6 + 10 = 16
+    // === PORTED WP JS ALGORITHMS === //
+    const obtenerFamiliaBase = (num) => {
+      let red = sumarDigitos(num);
+      while (red > 9) { red = sumarDigitos(red); }
+      return red;
+    };
 
+    const crearBloqueEstructurado = (totalSimple, totalMultiplicadoOriginal, esFecha = false) => {
+      let total = parseInt(totalSimple);
+      let pasos = [];
+      let actual = total;
+      pasos.unshift(actual);
+      while (actual > 9) {
+          actual = String(actual).split('').reduce((a, b) => a + parseInt(b), 0);
+          pasos.unshift(actual);
+          if ((actual === 11 || actual === 22) && !pasos.includes(actual)) {
+              pasos.unshift(actual);
+          }
+      }
+      let resultado = pasos.filter(num => num <= 22).reverse();
+      let valorOculto = 0;
+      if (!esFecha && totalMultiplicadoOriginal) {
+          valorOculto = sumarDigitos(totalMultiplicadoOriginal);
+          if (valorOculto > 0 && !resultado.includes(valorOculto)) {
+              resultado.push(valorOculto);
+          }
+      }
+      return resultado;
+    };
+
+    const calcularMisionCompleta = (array1, array2) => {
+      let resultadosSet = new Set();
+      let arr1 = [...array1];
+      let arr2 = [...array2];
+      
+      for (let i = 0; i < arr1.length; i++) {
+          for (let j = 0; j < arr2.length; j++) {
+              let suma = arr1[i] + arr2[j];
+              let reducido = sumarDigitos(suma);
+              resultadosSet.add(reducido);
+              if (suma >= 10 && suma <= 22 && suma !== reducido) {
+                  resultadosSet.add(suma);
+              }
+          }
+      }
+      
+      let familia = Array.from(resultadosSet).filter(n => n >= 1 && n <= 9);
+      if (familia.length < 9) {
+          let valorOculto1 = arr1.length > 1 ? arr1[arr1.length - 1] : null;
+          let valorOculto2 = arr2.length > 1 ? arr2[arr2.length - 1] : null;
+          let agregado = false;
+          
+          if (valorOculto1 && valorOculto1 > 0 && !arr1.slice(0, -1).includes(valorOculto1)) {
+              arr1.push(valorOculto1);
+              agregado = true;
+          }
+          if (valorOculto2 && valorOculto2 > 0 && !arr2.slice(0, -1).includes(valorOculto2)) {
+              arr2.push(valorOculto2);
+              agregado = true;
+          }
+          
+          if (agregado) {
+              for (let i = 0; i < arr1.length; i++) {
+                  for (let j = 0; j < arr2.length; j++) {
+                      let suma = arr1[i] + arr2[j];
+                      let reducido = sumarDigitos(suma);
+                      resultadosSet.add(reducido);
+                      if (suma >= 10 && suma <= 22 && suma !== reducido) {
+                          resultadosSet.add(suma);
+                      }
+                  }
+              }
+          }
+      }
+      return Array.from(resultadosSet).sort((a, b) => a - b);
+    };
+
+    const calcularBloqueConFamilias = (bloque1, bloque2 = [0], bloque3 = [0]) => {
+      let sumaBase = bloque1[0] + (bloque2[0] || 0) + (bloque3[0] || 0);
+      let sumaReducida = sumarDigitos(sumaBase);
+      let familiaBase = obtenerFamiliaBase(sumaReducida);
+      
+      let combinacionesUnicas = new Set();
+      combinacionesUnicas.add(sumaReducida);
+      
+      if (sumaBase >= 10 && sumaBase <= 22) {
+          combinacionesUnicas.add(sumaBase);
+      }
+      
+      for (let i = 0; i < bloque1.length; i++) {
+          for (let j = 0; j < bloque2.length; j++) {
+              for (let k = 0; k < bloque3.length; k++) {
+                  let suma = bloque1[i] + bloque2[j] + bloque3[k];
+                  let sumaRed = sumarDigitos(suma);
+                  let famBase = obtenerFamiliaBase(sumaRed);
+                  
+                  if (famBase === familiaBase) {
+                      if (sumaRed >= 1 && sumaRed <= 9) {
+                          combinacionesUnicas.add(sumaRed);
+                      }
+                      
+                      if (suma >= 10 && suma <= 22) {
+                          combinacionesUnicas.add(suma);
+                      }
+                  }
+              }
+          }
+      }
+      return Array.from(combinacionesUnicas).sort((a, b) => a - b);
+    };
+
+    // === GENERANDO BLOQUES BÁSICOS === //
+    const blqNombre = crearBloqueEstructurado(analisisNombre.total_simple.original, analisisNombre.total_multiplicado, false);
+    const blqApellido1 = crearBloqueEstructurado(analisisApellido.total_simple.original, analisisApellido.total_multiplicado, false);
+    const blqApellido2 = hasApellido2 ? crearBloqueEstructurado(analisisApellido2.total_simple.original, analisisApellido2.total_multiplicado, false) : [0];
     
+    const blqDia = crearBloqueEstructurado(diaV, null, true);
+    const blqMes = crearBloqueEstructurado(mesV, null, true);
+    const blqAnio = crearBloqueEstructurado(anioV, null, true);
+    
+    // === CALCULOS COMPUESTOS === //
+    const objCaracterEsencial = calcularBloqueConFamilias(blqNombre, blqApellido1, blqApellido2);
+    const objCaminoVida = calcularBloqueConFamilias(blqDia, blqMes, blqAnio);
+    const objEsencia = calcularBloqueConFamilias(objCaracterEsencial, objCaminoVida, [0]);
+    
+    const objMisionAdolescencia = calcularMisionCompleta(blqNombre, blqApellido1);
+    let objMisionInfancia;
+    if (hasApellido2) {
+        objMisionInfancia = calcularMisionCompleta(blqApellido1, blqApellido2);
+    } else {
+        // En PHP WP, si no hay segundo apellido, mision infancia = bloque apellido 1
+        objMisionInfancia = [...blqApellido1];
+    }
+    
+    const objCrisisCorto = calcularBloqueConFamilias(blqDia, blqMes, [0]);
+    const objCrisisLargo = calcularBloqueConFamilias(blqMes, blqAnio, [0]);
+
+    // === HELPERS DE FORMATEO (Adapted for Combo Arrays) === //
+    const formatComboArray = (arr) => {
+        if (!arr || arr.length === 0) return "0";
+        // Convertir formato numerico ascendente y extraer ceros
+        let unicos = Array.from(new Set(arr.filter(v => v !== 0)));
+        return unicos.join('-');
+    };
+
+    // Modificamos calcValAndInterp para que tome el base number de un combo array
+    // El base number usado en el diccionario e interpretación es siempre el primer elemento del array (menor número) de las misiones
+    const comboInfo = (arr) => {
+        let finalVal = arr[0]; 
+        // WP JS UI behavior: family checks interpretation using the first digit, except if it is 11 or 22
+        // Actually, in WP, `obtenerFamilia` is just looking up the number. The base is arr[0].
+        let fam = obtenerFamilia(finalVal);
+        return {
+            familia: fam,
+            desc: obtenerInterpretacion(finalVal)
+        };
+    };
+
     const calcValAndInterp = (compoundVal) => {
         let finalValToReduce = compoundVal;
         if (compoundVal > 9 && compoundVal !== 11 && compoundVal !== 22) {
@@ -109,32 +264,21 @@ if (token) {
            desc: obtenerInterpretacion(valToInterpret)
         };
     };
-    
-    const almaV = analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original;
-    const almaInfo = calcValAndInterp(almaV);
-    const carInfo = calcValAndInterp(valCaracterEsencial);
-    const esenciaInfo = calcValAndInterp(valEsencia);
-    const caminoInfo = calcValAndInterp(valCaminoVida);
-    const misionInfo = calcValAndInterp(valMisionAdolescencia);
-    const misionInfInfo = calcValAndInterp(valorSimpleApellido + valorSimpleApellido2);
-    const cortoInfo = calcValAndInterp(valCrisisCorto);
-    const largoInfo = calcValAndInterp(valCrisisLargo);
-    
-    // For base blocks (dia, mes, etc.), it's just the simplified value unless 11/22
+
     const getBaseInfo = (val) => {
       let famObj = calcValAndInterp(val);
       return famObj;
     };
 
     resultados = {
-      alma: { num: formatResult(almaV), ...almaInfo },
-      caracterEsencial: { num: formatResult(valCaracterEsencial), ...carInfo },
-      esencia: { num: formatResult(valEsencia), ...esenciaInfo },
-      caminoVida: { num: formatResult(valCaminoVida), ...caminoInfo },
-      misionInfancia: { num: formatResult(valorSimpleApellido + valorSimpleApellido2), ...misionInfInfo },
-      misionAdolescencia: { num: formatResult(valMisionAdolescencia), ...misionInfo },
-      crisisCorto: { num: formatResult(valCrisisCorto), ...cortoInfo },
-      crisisLargo: { num: formatResult(valCrisisLargo), ...largoInfo },
+      alma: { num: formatResult(almaV), ...calcValAndInterp(almaV) }, // Wait user didn't have alma? Alma is valCaracterEsencial? WP doesn't have "Alma" output for these forms...? Wait WP has Alma (Vowels). But in my code Alma was `analisisNombre.total_vocales`. Let's keep `formatResult(almaV)` for Alma if it's not combo!
+      caracterEsencial: { num: formatComboArray(objCaracterEsencial), ...comboInfo(objCaracterEsencial) },
+      esencia: { num: formatComboArray(objEsencia), ...comboInfo(objEsencia) },
+      caminoVida: { num: formatComboArray(objCaminoVida), ...comboInfo(objCaminoVida) },
+      misionInfancia: { num: formatComboArray(objMisionInfancia), ...comboInfo(objMisionInfancia) },
+      misionAdolescencia: { num: formatComboArray(objMisionAdolescencia), ...comboInfo(objMisionAdolescencia) },
+      crisisCorto: { num: formatComboArray(objCrisisCorto), ...comboInfo(objCrisisCorto) },
+      crisisLargo: { num: formatComboArray(objCrisisLargo), ...comboInfo(objCrisisLargo) },
       datosPersonales: {
         nombre: { texto: payload.nombre, valor: formatResult(analisisNombre.total_simple), oculto: sumarDigitos(analisisNombre.total_multiplicado), info: getBaseInfo(valorSimpleNombre) },
         apellido1: { texto: payload.apellido, valor: formatResult(analisisApellido.total_simple), oculto: sumarDigitos(analisisApellido.total_multiplicado), info: getBaseInfo(valorSimpleApellido) },
