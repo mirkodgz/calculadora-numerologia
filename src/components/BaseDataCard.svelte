@@ -2,9 +2,9 @@
   export let titulo: string;
   export let subtitulo: string;
   export let numero: string | number;
-  export let 
+  export let oculto: number | null = null;
   export let familia: number | null = null;
-  export let descripcion: string = ''; number | null = null;
+  export let descripcion: string = '';
 </script>
 
 <div class="bg-white border top-border-accent rounded-xl shadow-sm p-6 text-center transform transition-all hover:shadow-md">
@@ -24,11 +24,6 @@
   {/if}
   {#if descripcion}
     <p class="text-gray-600 text-xs font-medium bg-slate-50 p-2 rounded">{descripcion}</p>
-  {/if}
-</div>
-  
-  {#if oculto !== null}
-    <p class="text-gray-500 text-sm font-medium">Valor oculto: {oculto}</p>
   {/if}
 </div>
 

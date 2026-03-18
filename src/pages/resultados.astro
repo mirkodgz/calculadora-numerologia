@@ -170,9 +170,9 @@ if (token) {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <BaseDataCard titulo={resultados.datosPersonales.nombre.texto} subtitulo="Nombre" numero={resultados.datosPersonales.nombre.valor} oculto={resultados.datosPersonales.nombre.oculto} familia={resultados.datosPersonales.nombre.info.familia} descripcion={resultados.datosPersonales.nombre.info.desc} />
           <BaseDataCard titulo={resultados.datosPersonales.apellido1.texto} subtitulo="1° Apellido" numero={resultados.datosPersonales.apellido1.valor} oculto={resultados.datosPersonales.apellido1.oculto} familia={resultados.datosPersonales.apellido1.info.familia} descripcion={resultados.datosPersonales.apellido1.info.desc} />
-          {#if resultados.datosPersonales.apellido2}
+          {resultados.datosPersonales.apellido2 && (
             <BaseDataCard titulo={resultados.datosPersonales.apellido2.texto} subtitulo="2° Apellido" numero={resultados.datosPersonales.apellido2.valor} oculto={resultados.datosPersonales.apellido2.oculto} familia={resultados.datosPersonales.apellido2.info.familia} descripcion={resultados.datosPersonales.apellido2.info.desc} />
-          {/if}
+          )}
           <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} familia={resultados.datosPersonales.dia.info.familia} descripcion={resultados.datosPersonales.dia.info.desc} />
           <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} familia={resultados.datosPersonales.mes.info.familia} descripcion={resultados.datosPersonales.mes.info.desc} />
           <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} familia={resultados.datosPersonales.anio.info.familia} descripcion={resultados.datosPersonales.anio.info.desc} />
@@ -185,25 +185,25 @@ if (token) {
             titulo="Número de Alma" 
             numero={resultados.alma.num} familia={resultados.alma.familia} descripcion={resultados.alma.desc} 
             icono="🕊️"
-            descripcion="El anhelo profundo de tu ser, cómo encuentras la paz interior y tu verdadera motivación vital."
+            
           />
           <ResultadosCard 
             titulo="Carácter Esencial" 
             numero={resultados.caracterEsencial.num} familia={resultados.caracterEsencial.familia} descripcion={resultados.caracterEsencial.desc} 
             icono="🎭"
-            descripcion="Cómo te perciben los demás a primera vista y la máscara social que proyectas al mundo."
+            
           />
           <ResultadosCard 
             titulo="Esencia" 
             numero={resultados.esencia.num} familia={resultados.esencia.familia} descripcion={resultados.esencia.desc} 
             icono="🌟"
-            descripcion="La síntesis de tu personalidad, tus talentos innatos y tu verdadera identidad cósmica."
+            
           />
           <ResultadosCard 
             titulo="Camino de Vida" 
             numero={resultados.caminoVida.num} familia={resultados.caminoVida.familia} descripcion={resultados.caminoVida.desc} 
             icono="🛤️"
-            descripcion="El destino trazado para ti, los retos principales y el aprendizaje fundamental en esta vida."
+            
           />
           <ResultadosCard 
             titulo="Misión Infancia" 
@@ -216,19 +216,19 @@ if (token) {
             titulo="Misión Adolescencia" 
             numero={resultados.misionAdolescencia.num} familia={resultados.misionAdolescencia.familia} descripcion={resultados.misionAdolescencia.desc} 
             icono="🌱"
-            descripcion="La energía y lecciones kármicas que desarrollaste durante tu juventud y primeros años."
+            
           />
           <ResultadosCard 
             titulo="Crisis de Ciclo Corto" 
             numero={resultados.crisisCorto.num} familia={resultados.crisisCorto.familia} descripcion={resultados.crisisCorto.desc} 
             icono="⚡"
-            descripcion="El desafío constante en tu vida diaria y cómo superarlo con sabiduría y consciencia."
+            
           />
           <ResultadosCard 
             titulo="Crisis de Ciclo Largo" 
             numero={resultados.crisisLargo.num} familia={resultados.crisisLargo.familia} descripcion={resultados.crisisLargo.desc} 
             icono="⏳"
-            descripcion="El gran reto kármico de fondo que deberás superar a lo largo de toda tu existencia."
+            
           />
         </div>
 
