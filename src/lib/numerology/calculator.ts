@@ -204,7 +204,7 @@ export function sumarDigitosRecursivoSteps(num: number): number[] {
       pasos.unshift(actual);
     }
   }
-  return pasos.filter(n => n <= 22).reverse();
+  return pasos.filter(n => n <= 22);
 }
 
 export function sumarDigitos(num: number): number {
