@@ -35,22 +35,71 @@ if (token) {
       return steps.join('-');
     };
 
-    const valorSimpleNombre = analisisNombre.total_simple || 0;
-    const valorSimpleApellido = analisisApellido.total_simple || 0;
-    const valorSimpleApellido2 = analisisApellido2.total_simple || 0;
+        // Lógica para obtener el valor correcto de un bloque (los números maestros se respetan en vez de reducirse a su base, a menos que sean final)
+    const getCompoundVal = (block) => {
+        // En PHP: si el original es 11 o 22 (o en algunos casos el valor), se suma como 11/22 en lugar de 2/4.
+        if (block.original === 11 || block.original === 22) return block.original;
+        // Si no es especial, devuelve el valor reducido al final (e.g. 5)
+        return block.valor;
+    };
+    
+    // Lo mismo para los totales de las letras:
+    const getKabVal = (analisis) => {
+        const val = analisis.total_multiplicado_simplificado;
+        if (val.original >= 10 && val.original <= 22) return val.original;
+        // Si no...
+        if (val.valor === 11 || val.valor === 22) return val.valor;
+        return val.valor;
+    };
 
-    const valorKabNombre = analisisNombre.total_multiplicado || 0;
-    const valorKabApellido = analisisApellido.total_multiplicado || 0;
-    const valorKabApellido2 = analisisApellido2.total_multiplicado || 0;
+    const getSimpleVal = (analisis) => {
+        const val = analisis.total_simple_simplificado;
+        if (val.original >= 10 && val.original <= 22) return val.original;
+        if (val.valor === 11 || val.valor === 22) return val.valor;
+        return val.valor;
+    }
+
+    const valorKabNombre = getKabVal(analisisNombre);
+    const valorKabApellido = getKabVal(analisisApellido);
+    const valorKabApellido2 = hasApellido2 ? getKabVal(analisisApellido2) : 0;
+
+    const valorSimpleNombre = getSimpleVal(analisisNombre);
+    const valorSimpleApellido = getSimpleVal(analisisApellido);
+    const valorSimpleApellido2 = hasApellido2 ? getSimpleVal(analisisApellido2) : 0;
+
+    const diaV = getCompoundVal(analisisFecha.dia); // 5
+    const mesV = getCompoundVal(analisisFecha.mes); // 11
+    const anioV = getCompoundVal(analisisFecha.anio); // 3
+    
+    // Cálculos compuestos exactos
+    const valCaracterEsencial = valorKabNombre + valorKabApellido + valorKabApellido2; // 6 + 5 + 6 = 15? No, pre95 Mirko Kb=23, Dom Kb=23.. wait. 4+5+6 = 15
+    const valCaminoVida = diaV + mesV + anioV; // 5 + 11 + 3 = 19
+    const valMisionAdolescencia = valorSimpleNombre + valorSimpleApellido;
+    const valCrisisCorto = diaV + mesV;
+    const valCrisisLargo = mesV + anioV;
+
+    // CaminoVida's "valor" (for subsequent use) = 1+9=10 (not 1)
+    const caminoFinal = sumarDigitosRecursivoSteps(valCaminoVida);
+    const caminoValParaEsencia = caminoFinal.length > 1 ? caminoFinal[1] : caminoFinal[0]; // 10 instead of 1
+
+    const carEsencialFinal = sumarDigitosRecursivoSteps(valCaracterEsencial);
+    const carEsencialVal = carEsencialFinal.length > 1 ? carEsencialFinal[1] : carEsencialFinal[0]; // 15... wait 6? 
+
+    // Because WordPress used "valor" which is the reduced single digit (unless 11/22)
+    // Actually: 
+    const vC = valCaracterEsencial > 9 && valCaracterEsencial !== 11 && valCaracterEsencial !== 22 ? sumarDigitosRecursivoSteps(valCaracterEsencial)[0] : valCaracterEsencial;
+    const vV = valCaminoVida > 9 && valCaminoVida !== 11 && valCaminoVida !== 22 ? sumarDigitosRecursivoSteps(valCaminoVida)[0] : valCaminoVida;
+
+    const valEsencia = vC + vV; // 6 + 10 = 16
 
     resultados = {
-      alma: formatResult(analisisFecha.dia.original),
-      caracterEsencial: formatResult(valorKabNombre + valorKabApellido + valorKabApellido2),
-      esencia: formatResult(valorSimpleNombre + valorSimpleApellido + valorSimpleApellido2),
-      caminoVida: formatResult(analisisFecha.dia.original + analisisFecha.mes.original + analisisFecha.anio.original),
-      misionAdolescencia: formatResult(valorSimpleNombre + valorSimpleApellido),
-      crisisCorto: formatResult(analisisFecha.dia.original + analisisFecha.mes.original),
-      crisisLargo: formatResult(analisisFecha.mes.original + analisisFecha.anio.original)
+      alma: formatResult(analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original), // 5 -> 23
+      caracterEsencial: formatResult(valCaracterEsencial),
+      esencia: formatResult(valEsencia),
+      caminoVida: formatResult(valCaminoVida),
+      misionAdolescencia: formatResult(valMisionAdolescencia),
+      crisisCorto: formatResult(valCrisisCorto),
+      crisisLargo: formatResult(valCrisisLargo)
     };
   }
 }
