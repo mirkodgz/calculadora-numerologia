@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ResultadosCard from '../components/ResultadosCard.svelte';
+import BaseDataCard from '../components/BaseDataCard.svelte';
 import { verifyNumerologyToken } from '../lib/jwt';
 import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos, sumarDigitosRecursivoSteps } from '../lib/numerology/calculator';
 // En un proyecto real, estas funciones de lógica avanzada (calcularBloqueConFamilias) estarían en calculator.ts
@@ -93,6 +94,7 @@ if (token) {
     const valEsencia = vC + vV; // 6 + 10 = 16
 
     resultados = {
+
       alma: formatResult(analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original), // 5 -> 23
       caracterEsencial: formatResult(valCaracterEsencial),
       esencia: formatResult(valEsencia),
@@ -100,6 +102,15 @@ if (token) {
       misionAdolescencia: formatResult(valMisionAdolescencia),
       crisisCorto: formatResult(valCrisisCorto),
       crisisLargo: formatResult(valCrisisLargo)
+      ,
+      datosPersonales: {
+        nombre: { texto: payload.nombre, valor: formatResult(valorKabNombre), oculto: analisisNombre.total_multiplicado },
+        apellido1: { texto: payload.apellido, valor: formatResult(valorKabApellido), oculto: analisisApellido.total_multiplicado },
+        apellido2: hasApellido2 ? { texto: payload.segundo_apellido, valor: formatResult(valorKabApellido2), oculto: analisisApellido2.total_multiplicado } : null,
+        dia: { texto: String(analisisFecha.dia.original), valor: formatResult(diaV) },
+        mes: { texto: String(analisisFecha.mes.original), valor: formatResult(mesV) },
+        anio: { texto: payload.fecha_nacimiento.split('-')[0], valor: formatResult(anioV) }
+      }
     };
   }
 }
@@ -124,7 +135,23 @@ if (token) {
         </header>
 
         
+        
+        <!-- DATOS PERSONALES -->
+        <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Datos Personales</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <BaseDataCard titulo={resultados.datosPersonales.nombre.texto} subtitulo="Nombre" numero={resultados.datosPersonales.nombre.valor} oculto={resultados.datosPersonales.nombre.oculto} />
+          <BaseDataCard titulo={resultados.datosPersonales.apellido1.texto} subtitulo="1° Apellido" numero={resultados.datosPersonales.apellido1.valor} oculto={resultados.datosPersonales.apellido1.oculto} />
+          {#if resultados.datosPersonales.apellido2}
+            <BaseDataCard titulo={resultados.datosPersonales.apellido2.texto} subtitulo="2° Apellido" numero={resultados.datosPersonales.apellido2.valor} oculto={resultados.datosPersonales.apellido2.oculto} />
+          {/if}
+          <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} />
+          <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} />
+          <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} />
+        </div>
+
+        <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Cálculos Kármicos y Compuestos</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+
           <ResultadosCard 
             titulo="Número de Alma" 
             numero={resultados.alma} 
