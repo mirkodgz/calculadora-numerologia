@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request, url }) => {
       idioma,
       email,
     };
-    
+
     const jwtToken = await signNumerologyToken(tokenPayload);
 
     // 2. Construir la URL mágica de resultados (basada en el dominio actual)
@@ -34,6 +34,8 @@ export const POST: APIRoute = async ({ request, url }) => {
     const apiKey = import.meta.env.GHL_API_KEY;
     const customFieldId = import.meta.env.GHL_CUSTOM_FIELD_URL || 'resultados_url'; // Reemplazar con ID real del custom field
     
+    let isExisting = false;
+
     if (apiKey) {
       const ghlPayload = {
         firstName: nombre,
@@ -47,12 +49,12 @@ export const POST: APIRoute = async ({ request, url }) => {
       };
 
       // Intentamos buscar y crear/actualizar en GHL
-      const searchRes = await fetch(`https://rest.gohighlevel.com/v1/contacts/?query=${encodeURIComponent(email)}`, {
+      const searchRes = await fetch(`https://rest.gohighlevel.com/v1/contacts/lookup?email=${encodeURIComponent(email)}`, {
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' }
       });
-      
+
       const searchData = await searchRes.json();
-      
+
       if (searchData.contacts && searchData.contacts.length > 0) {
         // Actualizar contacto existente
         const contactId = searchData.contacts[0].id;
@@ -60,8 +62,8 @@ export const POST: APIRoute = async ({ request, url }) => {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-             tags: [...(searchData.contacts[0].tags || []), 'lead-calculadora'],
-             customField: ghlPayload.customField
+            tags: [...(searchData.contacts[0].tags || []), 'lead-calculadora'],
+            customField: ghlPayload.customField
           })
         });
       } else {
@@ -72,6 +74,8 @@ export const POST: APIRoute = async ({ request, url }) => {
           body: JSON.stringify(ghlPayload)
         });
       }
+      
+      isExisting = searchData?.contacts && searchData.contacts.length > 0;
     } else {
       console.warn('GHL_API_KEY no detectada. Modo desarrollo simulado.');
       console.log('Result URL Generada:', resultsUrl);
@@ -82,20 +86,21 @@ export const POST: APIRoute = async ({ request, url }) => {
     if (n8nWebhook) {
       try {
         await fetch(n8nWebhook, {
-           method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({
-              nombre,
-              apellido,
-              segundo_apellido: segundo_apellido || '',
-              fecha_nacimiento,
-              idioma,
-              email,
-              telefono: telefono || '',
-              resultados_url: resultsUrl,
-              origen: 'landing_principal',
-              fecha_envio: new Date().toISOString()
-           })
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre,
+            apellido,
+            segundo_apellido: segundo_apellido || '',
+            fecha_nacimiento,
+            idioma,
+            email,
+            telefono: telefono || '',
+            resultados_url: resultsUrl,
+            origen: 'landing_principal',
+            is_existing: isExisting,
+            fecha_envio: new Date().toISOString()
+          })
         });
       } catch (e) {
         console.error('Error enviando webhook n8n:', e);
@@ -103,9 +108,11 @@ export const POST: APIRoute = async ({ request, url }) => {
     }
 
     // Respuesta exitosa al frontend (Svelte)
-    return new Response(JSON.stringify({ 
-      success: true, 
-      message: 'Revisa tu bandeja de entrada para ver tus resultados.' 
+    return new Response(JSON.stringify({
+      success: true,
+      isExisting: isExisting,
+      resultsUrl: isExisting ? resultsUrl : null,
+      message: isExisting ? '¡Bienvenido de nuevo! Redirigiendo a tus resultados...' : 'Revisa tu bandeja de entrada para ver tus resultados.'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

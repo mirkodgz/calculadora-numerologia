@@ -70,15 +70,20 @@
       loadingProgress = 100;
       
       setTimeout(() => {
-        showLoadingScreen = false;
-        success = true;
-        // Lanzar lluvia de confetti
-        confetti({
-          particleCount: 150,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#e6b866', '#B11252', '#f4d393', '#ffffff']
-        });
+        if (data.isExisting && data.resultsUrl) {
+          // Si el usuario ya existe en GHL, redirigimos directamente sin pedirle validar correo
+          window.location.href = data.resultsUrl;
+        } else {
+          showLoadingScreen = false;
+          success = true;
+          // Lanzar lluvia de confetti
+          confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#e6b866', '#B11252', '#f4d393', '#ffffff']
+          });
+        }
       }, 600);
       
     } catch (error: any) {
