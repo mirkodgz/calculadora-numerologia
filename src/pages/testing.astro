@@ -29,6 +29,32 @@ if (Astro.request.method === 'POST') {
       };
 
       const jwtToken = await signNumerologyToken(tokenPayload);
+      const resultsUrl = new URL(`/resultados?token=${jwtToken}`, Astro.url.origin).toString();
+
+      // Enviar a n8n (Google Sheets) si está configurado
+      const n8nWebhook = import.meta.env.N8N_WEBHOOK_URL;
+      if (n8nWebhook) {
+        try {
+          await fetch(n8nWebhook, {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({
+                nombre,
+                apellido,
+                segundo_apellido: segundo_apellido || '',
+                fecha_nacimiento,
+                idioma,
+                email,
+                telefono: '',
+                resultados_url: resultsUrl,
+                origen: 'testing_bypassed',
+                fecha_envio: new Date().toISOString()
+             })
+          });
+        } catch (e) {
+          console.error('Error enviando webhook n8n desde testing:', e);
+        }
+      }
 
       // REDIRECT INMEDIATO AL RESULTADO (Bypassing GHL)
       return Astro.redirect(`/resultados?token=${jwtToken}`);

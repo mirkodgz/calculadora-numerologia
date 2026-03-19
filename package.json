@@ -16,9 +16,14 @@
     "@astrojs/vercel": "^10.0.1",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.5",
+    "canvas-confetti": "^1.9.4",
     "jose": "^6.2.1",
+    "lucide-svelte": "^0.577.0",
     "svelte": "^5.54.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0"
   }
 }

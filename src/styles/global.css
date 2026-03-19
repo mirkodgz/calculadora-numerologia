@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Comfortaa", cursive, sans-serif;
-  --font-sans: "Figtree", sans-serif;
+  --font-serif: "Figtree", sans-serif;
+  --font-sans: "Lora", serif;
   
   --color-brand-primary: #B11252;
   --color-brand-secondary: #e6b866;

@@ -1,43 +1,73 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Faq from '../components/Faq.svelte';
-import Testimoniales from '../components/Testimoniales.astro';
-import CalculadoraForm from '../components/CalculadoraForm.svelte';
-import ComoFunciona from '../components/ComoFunciona.astro';
-import Instrucciones from '../components/Instrucciones.astro';
-import ResultadosEjemplo from '../components/ResultadosEjemplo.astro';
-import Beneficios from '../components/Beneficios.astro';
-import Diferencias from '../components/Diferencias.astro';
-import UpsellCurso from '../components/UpsellCurso.astro';
-import NavegacionInterna from '../components/NavegacionInterna.astro';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Faq from "../components/Faq.svelte";
+import Testimoniales from "../components/Testimoniales.astro";
+import CalculadoraForm from "../components/CalculadoraForm.svelte";
+import ComoFunciona from "../components/ComoFunciona.astro";
+import Instrucciones from "../components/Instrucciones.astro";
+import ResultadosEjemplo from "../components/ResultadosEjemplo.astro";
+import Beneficios from "../components/Beneficios.astro";
+import Diferencias from "../components/Diferencias.astro";
+import CursoUpsell from "../components/CursoUpsell.astro";
+import NavegacionInterna from "../components/NavegacionInterna.astro";
+import SplashScreen from "../components/SplashScreen.astro";
 ---
 
-<Layout title="Descubre Tu Mapa Numerológico con la Calculadora Cabalística Gratuita | Sabiduría de Alma">
+<Layout
+  title="Descubre Tu Mapa Numerológico con la Calculadora Cabalística Gratuita | Sabiduría de Alma"
+>
+  <SplashScreen />
   <main class="min-h-screen">
     <Hero />
 
     <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-serif text-[#333333] mb-10 tracking-tight">Descubre el Lenguaje Secreto de Tu Identidad</h2>
-      
-      <div class="space-y-6 text-slate-600 font-sans font-medium text-lg leading-relaxed max-w-4xl mx-auto">
+      <h2
+        class="text-3xl md:text-4xl font-serif text-[#333333] mb-10 tracking-tight"
+      >
+        Descubre el Lenguaje Secreto de Tu Identidad
+      </h2>
+
+      <div
+        class="space-y-6 text-slate-600 font-sans font-medium text-lg leading-relaxed max-w-4xl mx-auto"
+      >
         <p>
-          ¿Sabías que cada letra de tu nombre y cada número de tu fecha de nacimiento contienen información profunda sobre quién eres?
+          ¿Sabías que cada letra de tu nombre y cada número de tu fecha de
+          nacimiento contienen información profunda sobre quién eres?
         </p>
         <p>
-          La <strong class="font-medium text-slate-800">Numerología Cabalística</strong> es una herramienta ancestral que traduce tus datos personales en códigos numéricos que revelan tu energía vital, tus aprendizajes y potenciales.
+          La <strong class="font-medium text-slate-800"
+            >Numerología Cabalística</strong
+          > es una herramienta ancestral que traduce tus datos personales en códigos
+          numéricos que revelan tu energía vital, tus aprendizajes y potenciales.
         </p>
         <p>
-          Con esta calculadora gratuita, podrás obtener el cálculo exacto de tus números personales —según la tradición cabalística— a partir de tu nombre completo, idioma materno y fecha de nacimiento.
+          Con esta calculadora gratuita, podrás obtener el cálculo exacto de tus
+          números personales —según la tradición cabalística— a partir de tu
+          nombre completo, idioma materno y fecha de nacimiento.
         </p>
       </div>
 
-      <div class="mt-12 bg-white/60 backdrop-blur-md border border-[#e6b866]/20 py-10 px-6 sm:px-12 rounded-xl max-w-4xl mx-auto shadow-sm tracking-wide">
-        <h3 class="text-xl font-serif font-semibold text-slate-800 mb-4">¿Y cómo interpretar estos resultados?</h3>
-        <p class="text-slate-600 font-sans font-medium text-sm sm:text-base leading-relaxed mb-8 max-w-3xl mx-auto">
-          Te invitamos a descubrir su significado a través de nuestros podcasts, artículos del blog, nuestro libro de Numerología Cabalística, y si deseas profundizar aún más, puedes inscribirte en nuestro curso completo.
+      <div
+        class="mt-12 bg-white/60 backdrop-blur-md border border-[#e6b866]/20 py-10 px-6 sm:px-12 rounded-xl max-w-4xl mx-auto shadow-sm tracking-wide"
+      >
+        <h3 class="text-xl font-serif font-semibold text-slate-800 mb-4">
+          ¿Y cómo interpretar estos resultados?
+        </h3>
+        <p
+          class="text-slate-600 font-sans font-medium text-sm sm:text-base leading-relaxed mb-8 max-w-3xl mx-auto"
+        >
+          Te invitamos a descubrir su significado a través de nuestros podcasts,
+          artículos del blog, nuestro libro de Numerología Cabalística, y si
+          deseas profundizar aún más, puedes inscribirte en nuestro curso
+          completo.
         </p>
-        <a href="https://sabiduriadealma.com/numerologia-cabalistica/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border-2 border-slate-300 text-slate-600 font-sans font-semibold tracking-widest text-sm hover:bg-white hover:border-[#B11252] hover:text-[#B11252] transition-colors rounded">
+        <a
+          href="https://sabiduriadealma.com/numerologia-cabalistica/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-3 border-2 border-slate-300 text-slate-600 font-sans font-semibold tracking-widest text-sm hover:bg-white hover:border-[#B11252] hover:text-[#B11252] transition-colors rounded"
+        >
           👉 CURSO DE NUMEROLOGÍA CABALÍSTICA
         </a>
       </div>
@@ -53,30 +83,61 @@ import NavegacionInterna from '../components/NavegacionInterna.astro';
       <Faq client:load />
     </section>
 
-    <section class="py-20 relative">
-      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#e6b866]/50 to-transparent"></div>
-      
+    <section id="calculador" class="py-20 relative scroll-mt-24">
+      <div
+        class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#e6b866]/50 to-transparent"
+      >
+      </div>
+
       <div class="max-w-4xl mx-auto px-2 sm:px-6 relative z-10">
         <CalculadoraForm client:load />
-        
-        <div class="mt-10 max-w-xl mx-auto bg-white/50 backdrop-blur-sm rounded-xl p-6 text-center border border-[#e6b866]/10 mb-12">
-          <div class="flex items-center justify-center space-x-2 text-slate-500 mb-2">
-            <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            <span class="text-sm font-medium text-slate-700">Privacidad del 100% Garantizada</span>
+
+        <div
+          class="mt-10 max-w-xl mx-auto bg-white/50 backdrop-blur-sm rounded-xl p-6 text-center border border-[#e6b866]/10 mb-12"
+        >
+          <div
+            class="flex items-center justify-center space-x-2 text-slate-500 mb-2"
+          >
+            <svg
+              class="w-5 h-5 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              ></path>
+            </svg>
+            <span class="text-base font-medium text-slate-700"
+              >Privacidad del 100% Garantizada</span
+            >
           </div>
-          <p class="text-xs text-slate-400">Jamás compartiremos tu información con terceros. Tus datos se procesan matemáticamente en segundos y se eliminan del servidor tras enviarte el resultado.</p>
+          <p class="text-sm text-slate-500">
+            Jamás compartiremos tu información. Tus datos personales están bajo
+            estricta seguridad y solo se utilizan para calcular tu mapa y
+            enviarte contenido afín a tu crecimiento. Puedes leer más
+            consultando nuestra <a
+              href="https://sabiduriadealma.com/politica-de-privacidad/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-primary font-medium hover:underline"
+              >política de privacidad</a
+            >.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- Content Sections Post-Calculator -->
     <ResultadosEjemplo />
-    
+
     <Beneficios />
-    
+
     <Diferencias />
 
-    <UpsellCurso />
+    <CursoUpsell />
 
     <NavegacionInterna />
 

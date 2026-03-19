@@ -1,55 +1,131 @@
 ---
+const reviews = [
+  {
+    author: "Alexandra Bell Jarana",
+    initial: "A",
+    color: "bg-gray-500",
+    date: "18/01/2026",
+    text: "Me regalaron una sesión de numerología sobre mi año personal y fue una experiencia preciosa. Ana transmite muchísima paz y confianza. Sin duda, un regalo que me acompañará en cada decisión este año. Gracias 🙏😌"
+  },
+  {
+    author: "Sara López Aguilera",
+    initial: "S",
+    color: "bg-amber-600",
+    date: "17/01/2026",
+    text: "Ana es una persona luminosa y muy profesional. Se nota que hace su trabajo desde un lugar auténtico y cuidadoso. Gracias por tanto 🌻"
+  },
+  {
+    author: "AURIKA 999",
+    initial: "A",
+    color: "bg-slate-700",
+    date: "16/01/2026",
+    text: "Ana comparte su sabiduría con generosidad, claridad, enfoque y Conciencia, lo que hace de esta Masterclass una experiencia que llega al corazón. Una Verdadera conversación simbólica con el Alma, que a través de la numerología cabalística, nos abre las puertas de conciencia mes a mes con una guía amorosa. Su libro PDF la guía energética 2026, no puede faltar en la biblioteca de los buscadores de la Verdad."
+  },
+  {
+    author: "Angeles Benlloch",
+    initial: "A",
+    color: "bg-pink-500",
+    date: "16/01/2026",
+    text: "Una experiencia muy buena. Ana es muy clara cuando explica y es muy interesante como afronta cada tema. Muy, muy recomendable"
+  },
+  {
+    author: "Iara Trembecki",
+    initial: "I",
+    color: "bg-teal-600",
+    date: "13/01/2026",
+    text: "Aprender con Ana y Pablo, es como hacer un viaje a la consciencia, y como en todo viaje... no querer que termine y desear regresar. Si no solo buscás aprender Cábala, sino ir a lo profundo del Alma y despertar, es acá..."
+  },
+  {
+    author: "Amparo Arrikitaum",
+    initial: "A",
+    color: "bg-slate-600",
+    date: "12/01/2026",
+    text: "Ha sido un descubrimiento, la masterclass de Numerología Cabalística. Una clase muy interesante e impartida de una forma clara y amena. Seguiré profundizando y si es con este equipo mucho mejor. Gracias por todo lo que aprendo!"
+  },
+  {
+    author: "YOANA PEÑA LOPEZ",
+    initial: "Y",
+    color: "bg-indigo-400",
+    date: "22/12/2025",
+    text: "Hola!..quería compartir mi experiencia con Ana Orero y mi lectura energética del año 2026, sin duda una experiencia fantástica, te da datos muy concretos con los que te orienta para poder sacar el mayor provecho de los aspectos positivos del año e igualmente te da consejos y orientaciones para poder lidiar con los aspectos menos positivos del año. Para mí será una guía que utilizaré todo el año ya que es muy útil tener el vídeo y un dossier amplísimo de la lectura. Mil gracias por vuestro trabajo."
+  },
+  {
+    author: "Maite",
+    initial: "M",
+    color: "bg-blue-500",
+    date: "04/02/2026",
+    text: "Indagar en mi camino de vida con Ana fue como un balsamo para el Alma. Ana tiene el maravilloso don de compartir sabiduría desde el corazón y eso hace que la lectura se convierta en un poderoso y magico momento de \"apertura de consciencia\". Recomiendo vivir la experiencia para crecer y evolucionar. Gracias Ana, eres toda una profesional."
+  },
+  {
+    author: "Josefina Malegni",
+    initial: "J",
+    color: "bg-green-700",
+    date: "29/01/2026",
+    text: "Una experiencia mas que 5 estrellas! Conexión profunda de alma a alma. Claridad, amorosidad, guía, contención. Un labor bello y muy humano. Gracias Ana por esta lectura inmensa y gracias a la Escuela por la sabiduría gigante que comparten al mundo. Experiencia sumamente sanadora y enriquecedora. Recomiendo profundamente gracias!!!"
+  }
+];
+
+const doubledReviews = [...reviews, ...reviews];
 ---
-<section class="py-20 bg-slate-50">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-serif text-[#333333] mb-4">Lo que dicen nuestros alumnos</h2>
-    <p class="text-slate-500 font-medium mb-12">Miles de almas ya han encontrado su propósito a través de la Sabiduría Cabalística.</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-      <!-- Testimonio 1 -->
-      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <div class="flex text-amber-400 mb-4">
-          ★★★★★
-        </div>
-        <p class="text-slate-600 font-medium italic mb-6">"Hacer este cálculo fue un antes y un después. Entendí por qué repetía los mismos patrones en mis relaciones. El reporte completo es oro molido."</p>
-        <div class="flex items-center">
-          <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold">M</div>
-          <div class="ml-3">
-            <p class="text-sm font-medium text-slate-800">María F.</p>
-            <p class="text-xs text-slate-500">España</p>
-          </div>
-        </div>
+<section class="py-24 bg-[#FAFAFA] relative overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-serif text-slate-900 mb-4">Lo que dicen nuestros alumnos</h2>
+      <div class="flex items-center justify-center gap-2 text-slate-500 font-sans font-medium mb-2">
+        <span>Miles de almas ya han encontrado su propósito a través de la Sabiduría Cabalística.</span>
       </div>
-      
-      <!-- Testimonio 2 -->
-      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <div class="flex text-amber-400 mb-4">
-          ★★★★★
-        </div>
-        <p class="text-slate-600 font-medium italic mb-6">"Siempre dudé del mundo holístico, hasta que vi la precisión matemática de mi Misión de Vida. Todo cobró sentido."</p>
-        <div class="flex items-center">
-          <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold">C</div>
-          <div class="ml-3">
-            <p class="text-sm font-medium text-slate-800">Carlos R.</p>
-            <p class="text-xs text-slate-500">México</p>
+    </div>
+
+    <div class="relative w-full overflow-hidden group py-4">
+      <div class="flex gap-6 w-max animate-scroll hover:pause-animation">
+        {doubledReviews.map((review, i) => (
+          <div class="w-[85vw] sm:w-[500px] xl:w-[420px] bg-white rounded-2xl p-8 shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col hover:-translate-y-2 hover:shadow-lg transition-all duration-300">
+            
+            <div class="flex justify-between items-start mb-6">
+              <div class="flex items-center gap-4">
+                <div class={`w-12 h-12 rounded-full ${review.color} flex items-center justify-center text-white font-sans font-bold text-xl shadow-inner`}>
+                  {review.initial}
+                </div>
+                <div>
+                  <h4 class="font-sans font-bold text-slate-800 leading-tight">{review.author}</h4>
+                  <p class="text-sm text-slate-400 mt-1 font-sans">{review.date}</p>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center justify-center w-8 h-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" class="w-full h-full object-contain filter drop-shadow-sm" />
+              </div>
+            </div>
+
+            <div class="flex items-center text-amber-400 mb-5 gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-[18px] h-[18px] ml-1 fill-blue-500 text-white shadow-sm rounded-full bg-blue-500"><path fill="currentColor" fill-rule="evenodd" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.177-7.86l-2.765-2.767L7 12.431l3.118 3.121a1 1 0 001.414 0l5.952-5.95-1.062-1.062-5.599 5.598z" clip-rule="evenodd"/></svg>
+            </div>
+
+            <p class="text-slate-800 font-sans font-medium leading-relaxed text-[15px] flex-grow">
+              {review.text}
+            </p>
           </div>
-        </div>
-      </div>
-      
-      <!-- Testimonio 3 -->
-      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <div class="flex text-amber-400 mb-4">
-          ★★★★★
-        </div>
-        <p class="text-slate-600 font-medium italic mb-6">"La calculadora me dio el empujón exacto que necesitaba para cambiar de carrera. Mi esencia numérica confirmaba mi verdadero don."</p>
-        <div class="flex items-center">
-          <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold">L</div>
-          <div class="ml-3">
-            <p class="text-sm font-medium text-slate-800">Lucía S.</p>
-            <p class="text-xs text-slate-500">Argentina</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 0.75rem)); } /* -50% of inner track minus half the gap */
+  }
+  
+  .animate-scroll {
+    animation: scroll 45s linear infinite;
+  }
+  
+  .hover\:pause-animation:hover {
+    animation-play-state: paused;
+  }
+</style>

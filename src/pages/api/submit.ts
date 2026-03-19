@@ -77,6 +77,31 @@ export const POST: APIRoute = async ({ request, url }) => {
       console.log('Result URL Generada:', resultsUrl);
     }
 
+    // 4. Enviar a n8n para Registro Centralizado (Google Sheets u otros)
+    const n8nWebhook = import.meta.env.N8N_WEBHOOK_URL;
+    if (n8nWebhook) {
+      try {
+        await fetch(n8nWebhook, {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({
+              nombre,
+              apellido,
+              segundo_apellido: segundo_apellido || '',
+              fecha_nacimiento,
+              idioma,
+              email,
+              telefono: telefono || '',
+              resultados_url: resultsUrl,
+              origen: 'landing_principal',
+              fecha_envio: new Date().toISOString()
+           })
+        });
+      } catch (e) {
+        console.error('Error enviando webhook n8n:', e);
+      }
+    }
+
     // Respuesta exitosa al frontend (Svelte)
     return new Response(JSON.stringify({ 
       success: true, 

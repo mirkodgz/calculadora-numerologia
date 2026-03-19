@@ -1,0 +1,53 @@
+---
+const logoUrl = "https://sabiduriadealma.com/wp-content/uploads/2025/08/LOGO-horizontal-SABIDURIA-DE-ALMA-png.png"
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    
+    <!-- Logo Section -->
+    <div class="flex items-center gap-4">
+      <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80">
+        <img src={logoUrl} alt="Sabiduría de Alma Logo" class="h-8 w-auto object-contain" />
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-6">
+      <a href="https://sabiduriadealma.com/" class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Regresar a la Homepage
+      </a>
+    </nav>
+
+    <!-- Call to Action -->
+    <div class="flex items-center gap-4">
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="inline-flex items-center justify-center rounded-md md:hidden p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <span class="sr-only">Toggle menu</span>
+      </button>
+    </div>
+
+  <!-- Mobile Navigation Menu (Hidden by default) -->
+  <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-100 absolute top-16 left-0 w-full shadow-lg flex-col py-4 px-6 gap-4 z-40">
+    <a href="https://sabiduriadealma.com/" class="flex items-center gap-3 text-base font-medium text-gray-700 hover:text-amber-600 transition-colors py-2 border-b border-gray-50">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Regresar a la Homepage
+    </a>
+  </div>
+</header>
+
+<script>
+  // Script para manejar el toggle del menú móvil
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+  }
+</script>

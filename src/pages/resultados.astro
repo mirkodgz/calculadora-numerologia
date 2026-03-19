@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import ResultadosCard from '../components/ResultadosCard.svelte';
 import BaseDataCard from '../components/BaseDataCard.svelte';
+import CursoUpsell from '../components/CursoUpsell.astro';
+import ContinuaAprendizaje from '../components/ContinuaAprendizaje.astro';
 import { verifyNumerologyToken } from '../lib/jwt';
 import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos, sumarDigitosRecursivoSteps, determinarVersionCastellano, obtenerInterpretacion } from '../lib/numerology/calculator';
 // En un proyecto real, estas funciones de lógica avanzada (calcularBloqueConFamilias) estarían en calculator.ts
@@ -206,9 +208,9 @@ if (token) {
     };
 
     // === GENERANDO BLOQUES BÁSICOS === //
-    const blqNombre = crearBloqueEstructurado(analisisNombre.total_simple.original, analisisNombre.total_multiplicado, false);
-    const blqApellido1 = crearBloqueEstructurado(analisisApellido.total_simple.original, analisisApellido.total_multiplicado, false);
-    const blqApellido2 = hasApellido2 ? crearBloqueEstructurado(analisisApellido2.total_simple.original, analisisApellido2.total_multiplicado, false) : [0];
+    const blqNombre = crearBloqueEstructurado(analisisNombre.total_simple, analisisNombre.total_multiplicado, false);
+    const blqApellido1 = crearBloqueEstructurado(analisisApellido.total_simple, analisisApellido.total_multiplicado, false);
+    const blqApellido2 = hasApellido2 ? crearBloqueEstructurado(analisisApellido2.total_simple, analisisApellido2.total_multiplicado, false) : [0];
     
     const blqDia = crearBloqueEstructurado(diaV, null, true);
     const blqMes = crearBloqueEstructurado(mesV, null, true);
@@ -255,12 +257,18 @@ if (token) {
     const calcValAndInterp = (compoundVal) => {
         let finalValToReduce = compoundVal;
         if (compoundVal > 9 && compoundVal !== 11 && compoundVal !== 22) {
-             finalValToReduce = sumarDigitosRecursivoSteps(compoundVal)[0];
+             finalValToReduce = sumarDigitosRecursivoSteps(compoundVal)[0]; 
         }
-        const valToInterpret = (finalValToReduce == 11 || finalValToReduce == 22) ? finalValToReduce : sumarDigitosRecursivoSteps(finalValToReduce)[0];
+        let resolvedSteps = sumarDigitosRecursivoSteps(finalValToReduce);
+        let baseVal = resolvedSteps[0]; 
+        
+        let fam = obtenerFamilia(baseVal);
+        // WP's `cp_simplificar_numero` returned `{ valor: 4, original: 22 }` for 22,
+        // and ALWAYS looked up the interpretation with `valor` (1-9).
+        const valToInterpret = baseVal;
         
         return {
-           familia: obtenerFamilia(valToInterpret),
+           familia: fam,
            desc: obtenerInterpretacion(valToInterpret)
         };
     };
@@ -269,6 +277,8 @@ if (token) {
       let famObj = calcValAndInterp(val);
       return famObj;
     };
+
+    const almaV = analisisFecha.dia.valor === 11 || analisisFecha.dia.valor === 22 ? analisisFecha.dia.valor : analisisFecha.dia.original;
 
     resultados = {
       alma: { num: formatResult(almaV), ...calcValAndInterp(almaV) }, // Wait user didn't have alma? Alma is valCaracterEsencial? WP doesn't have "Alma" output for these forms...? Wait WP has Alma (Vowels). But in my code Alma was `analisisNombre.total_vocales`. Let's keep `formatResult(almaV)` for Alma if it's not combo!
@@ -307,7 +317,12 @@ if (token) {
         <header class="text-center mb-16">
           <h2 class="text-sm font-semibold text-amber-600 tracking-widest uppercase mb-3">Tu Mapa Personal</h2>
           <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4 capitalize">Hola, {userPayload.nombre}</h1>
-          <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
+          <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto mb-6">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
+          
+          <button onclick="navigator.clipboard.writeText(window.location.href); alert('¡Enlace copiado al portapapeles! Ya puedes compartir tus resultados.')" class="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-medium py-2 px-6 rounded-full transition-colors text-sm shadow-sm cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+            Compartir mis resultados
+          </button>
         </header>
 
         
@@ -379,10 +394,9 @@ if (token) {
           />
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm p-8 text-center border-t-4 border-amber-400">
-          <h3 class="text-2xl font-serif text-gray-900 mb-4">¿Quieres profundizar en tus revelaciones?</h3>
-          <p class="text-gray-600 font-medium mb-8 max-w-3xl mx-auto">Tus números base son solo la punta del iceberg de tu Árbol de la Vida personal. Adquiere el estudio cabalístico completo para descifrar el mensaje secreto detrás de tu {userPayload.fecha_nacimiento}.</p>
-          <a href="https://sabiduriadealma.com/" target="_blank" class="inline-block border border-gray-900 text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium">Reservar Lectura Personal</a>
+        <div class="mt-16 w-full -mx-4 sm:mx-0 sm:w-auto">
+          <CursoUpsell />
+          <ContinuaAprendizaje />
         </div>
       </div>
     )}
