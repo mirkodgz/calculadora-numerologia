@@ -25,31 +25,41 @@
   }
 </script>
 
-<div class="w-full max-w-3xl mx-auto my-12 bg-white rounded-2xl shadow-sm border border-[#e6b866]/20 overflow-hidden">
-  <div class="bg-[#FCFBF9] px-6 py-8 border-b border-[#e6b866]/20 text-center">
-    <h2 class="text-2xl font-serif text-[#333333] mb-2">Instrucciones de Uso</h2>
-    <p class="text-slate-500 font-medium text-sm">Lee atentamente antes de generar tu mapa</p>
+<div class="w-full max-w-3xl mx-auto my-12 bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden transition-all duration-300">
+  <div class="bg-gradient-to-r from-slate-50/50 to-white px-8 md:px-10 py-10 border-b border-slate-100/80 text-left">
+    <div class="flex items-center gap-3 mb-3">
+      <div class="p-2.5 bg-brand-primary/10 rounded-xl text-brand-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-text"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path d="M6 8h2"/><path d="M6 12h2"/><path d="M16 8h2"/><path d="M16 12h2"/></svg>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-serif font-medium text-slate-800 tracking-tight">Instrucciones de Uso</h2>
+    </div>
+    <p class="text-slate-500 font-medium text-sm md:text-base ml-[52px]">Lee atentamente antes de generar tu mapa</p>
   </div>
   
-  <div class="divide-y divide-gray-100">
+  <div class="divide-y divide-slate-100/80">
     {#each faqs as faq, i}
-      <div class="bg-white">
+      <div class="bg-white group">
         <button 
-          class="w-full px-6 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-slate-50 transition-colors"
+          class="w-full px-8 md:px-10 py-6 flex justify-between items-center text-left focus:outline-none hover:bg-slate-50/50 transition-colors duration-200"
           on:click={() => toggle(i)}
           aria-expanded={openIndex === i}
         >
-          <span class="font-medium text-[#333333]">{faq.question}</span>
-          <span class="ml-6 flex-shrink-0 text-[#B11252] transform transition-transform duration-200" class:rotate-180={openIndex === i}>
-            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
+          <span class="font-sans font-medium text-[17px] text-slate-700 group-hover:text-brand-primary transition-colors pr-4">{faq.question}</span>
+          <span class="flex-shrink-0 text-brand-secondary transform transition-all duration-300" class:rotate-180={openIndex === i} class:text-brand-primary={openIndex === i}>
+            <div class="bg-brand-secondary/10 p-2 rounded-full group-hover:bg-brand-secondary/20 transition-colors">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </span>
         </button>
         
         {#if openIndex === i}
-          <div class="px-6 pb-5 pt-1 text-slate-600 font-medium leading-relaxed animate-fade-in bg-slate-50/50">
-            {faq.answer}
+          <div class="px-8 md:px-10 pb-8 pt-1 text-slate-600 font-sans font-medium text-[15px] md:text-base leading-relaxed text-left animate-fade-in relative">
+            <div class="absolute left-8 top-1 bottom-8 w-[3px] bg-brand-primary/20 rounded-full hidden md:block"></div>
+            <div class="md:pl-6">
+              {faq.answer}
+            </div>
           </div>
         {/if}
       </div>
