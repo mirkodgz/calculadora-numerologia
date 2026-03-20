@@ -158,7 +158,7 @@
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#e6b866] transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
               </div>
-              <input type="text" id="nombre" bind:value={nombre} required class="w-full pl-9 sm:pl-11 pr-3 sm:pr-4 py-3 sm:py-4 bg-white rounded-[1rem] border border-[#c15f3c] shadow-sm outline-none transition-all duration-300 focus:bg-white focus:border-[#B11252]/50 focus:ring-4 focus:ring-[#B11252]/10 text-[15px] placeholder:text-[14px] sm:text-base sm:placeholder:text-[15px] text-slate-800 placeholder-slate-400 shadow-sm" placeholder="Primeros nombres">
+              <input type="text" id="nombre" bind:value={nombre} required class="w-full pl-9 sm:pl-11 pr-3 sm:pr-4 py-3 sm:py-4 bg-white rounded-[1rem] border border-[#c15f3c] shadow-sm outline-none transition-all duration-300 focus:bg-white focus:border-[#B11252]/50 focus:ring-4 focus:ring-[#B11252]/10 text-[15px] placeholder:text-[14px] sm:text-base sm:placeholder:text-[15px] text-slate-800 placeholder-slate-400 shadow-sm" placeholder="Nombre completo">
             </div>
           </div>
           
@@ -171,7 +171,7 @@
 
           <div class="relative group col-span-1">
             <label for="segundo_apellido" class="block text-[9px] sm:text-[11px] font-bold text-[#B11252] uppercase tracking-widest mb-2 ml-1">Segundo Apellido</label>
-            <input type="text" id="segundo_apellido" bind:value={segundo_apellido} class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-white rounded-[1rem] border border-[#c15f3c] shadow-sm outline-none transition-all duration-300 focus:bg-white focus:border-[#B11252]/50 focus:ring-4 focus:ring-[#B11252]/10 text-[15px] placeholder:text-[14px] sm:text-base sm:placeholder:text-[15px] text-slate-800 placeholder-slate-400 shadow-sm" placeholder="Opcional">
+            <input type="text" id="segundo_apellido" bind:value={segundo_apellido} class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-white rounded-[1rem] border border-[#c15f3c] shadow-sm outline-none transition-all duration-300 focus:bg-white focus:border-[#B11252]/50 focus:ring-4 focus:ring-[#B11252]/10 text-[15px] placeholder:text-[14px] sm:text-base sm:placeholder:text-[15px] text-slate-800 placeholder-slate-400 shadow-sm" placeholder="Apellido materno">
           </div>
           
           <div class="relative group col-span-2 sm:col-span-1">

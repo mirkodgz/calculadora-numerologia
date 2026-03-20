@@ -1,43 +1,124 @@
 ---
 // ResultadosEjemplo.astro
 ---
+
 <section class="py-24 bg-white relative overflow-hidden">
   <!-- Decorative Background -->
-  <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[#e6b866]/10 via-[#B11252]/5 to-transparent rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+  <div
+    class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[#e6b866]/10 via-[#B11252]/5 to-transparent rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"
+  >
+  </div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
     <div class="text-center mb-16 max-w-3xl mx-auto">
-      <span class="text-[#B11252] text-sm font-semibold tracking-widest uppercase mb-3 block">Muestra Gratuita</span>
-      <h2 class="text-3xl md:text-5xl font-serif text-slate-800 mb-6">Ejemplo de Resultados de tu Mapa Numerológico</h2>
+      <span
+        class="text-[#B11252] text-sm font-semibold tracking-widest uppercase mb-3 block"
+        >Muestra Gratuita</span
+      >
+      <h2 class="text-3xl md:text-5xl font-serif text-slate-800 mb-6">
+        Ejemplo de Resultados de tu Mapa Numerológico
+      </h2>
       <p class="text-slate-600 font-sans text-lg font-medium leading-relaxed">
-        Al completar la calculadora, obtendrás 13 números personales calculados automáticamente según la tradición secreta de la Cábala. Cada uno revelará una pieza única de tu alma.
+        Al completar la calculadora, obtendrás 13 números personales calculados
+        automáticamente según la tradición secreta de la Cábala. Cada uno
+        revelará una pieza única de tu alma.
       </p>
     </div>
 
     <!-- Grid of the 13 results -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-      
       <!-- Card Template Macro -->
       {
         [
-          { title: "Nombre", desc: "La cualidad única por la que el clan te identificó y el rol que ocupas en tu sistema familiar.", icon: "✨", color: "border-[#e6b866]" },
-          { title: "Primer Apellido", desc: "Tu herencia masculina. Cómo expresas la fuerza del linaje paterno y la dirección hacia el mundo exterior.", icon: "🌳", color: "border-[#B11252]" },
-          { title: "Segundo Apellido", desc: "Tu herencia femenina. La sensibilidad, intuición y memoria ancestral de tu linaje materno.", icon: "🌙", color: "border-slate-400" },
-          { title: "Día de Nacimiento", desc: "Tu Número de Alma. Cómo encuentras armonía y tu capacidad para mantener la paz interior.", icon: "☀️", color: "border-[#e6b866]" },
-          { title: "Mes de Nacimiento", desc: "El Factor Kármico. Aquello que vienes a trascender y la memoria emocional que influye silenciosamente.", icon: "⏳", color: "border-[#B11252]" },
-          { title: "Año de Nacimiento", desc: "Tu temperamento básico. Cómo reaccionas ante la vida de forma genuina y tu estructura profunda.", icon: "🔥", color: "border-emerald-600" },
-          { title: "Carácter Esencial", desc: "La forma en que te manifiestas cuando estás en coherencia contigo mismo. Tu equilibrio natural.", icon: "⚖️", color: "border-slate-700" },
-          { title: "Camino de Vida", desc: "Lo que viniste a ser. El sendero profundo que te alinea con tu propósito central.", icon: "🛤️", color: "border-[#e6b866]" },
-          { title: "Esencia", desc: "La vibración más elevada de tu ser. El potencial que despierta cuando vives en plenitud.", icon: "👑", color: "border-[#B11252]" },
-          { title: "Crisis de Ciclo Corto", desc: "Energía que has sobreexpresado en otras vidas. Un impulso que tiende a repetirse con intensidad.", icon: "⚡", color: "border-amber-500" },
-          { title: "Crisis de Ciclo Largo", desc: "Energía reprimida o bloqueada en tu historia kármica. Un potencial olvidado a recuperar.", icon: "🗝️", color: "border-slate-500" },
-          { title: "Misión de Infancia", desc: "El aprendizaje esencial de tus primeros años y la energía que viniste a desarrollar desde nacer.", icon: "🌱", color: "border-emerald-500" },
-          { title: "Misión de Adolescencia", desc: "El impulso evolutivo de tu juventud. La vibración que guía tus elecciones al ir al mundo.", icon: "🦅", color: "border-cyan-600" }
+          {
+            title: "Nombre",
+            desc: "La cualidad única por la que el clan te identificó y el rol que ocupas en tu sistema familiar.",
+            icon: "✨",
+            color: "border-[#e6b866]",
+          },
+          {
+            title: "Primer Apellido",
+            desc: "Tu herencia masculina. Cómo expresas la fuerza del linaje paterno y la dirección hacia el mundo exterior.",
+            icon: "🌳",
+            color: "border-[#B11252]",
+          },
+          {
+            title: "Segundo Apellido",
+            desc: "Tu herencia femenina. La sensibilidad, intuición y memoria ancestral de tu linaje materno.",
+            icon: "🌙",
+            color: "border-slate-400",
+          },
+          {
+            title: "Día de Nacimiento",
+            desc: "Tu Número de Alma. Cómo encuentras armonía y tu capacidad para mantener la paz interior.",
+            icon: "☀️",
+            color: "border-[#e6b866]",
+          },
+          {
+            title: "Mes de Nacimiento",
+            desc: "El Factor Kármico. Aquello que vienes a trascender y la memoria emocional que influye silenciosamente.",
+            icon: "⏳",
+            color: "border-[#B11252]",
+          },
+          {
+            title: "Año de Nacimiento",
+            desc: "Tu temperamento básico. Cómo reaccionas ante la vida de forma genuina y tu estructura profunda.",
+            icon: "🔥",
+            color: "border-emerald-600",
+          },
+          {
+            title: "Carácter Esencial",
+            desc: "La forma en que te manifiestas cuando estás en coherencia contigo mismo. Tu equilibrio natural.",
+            icon: "⚖️",
+            color: "border-slate-700",
+          },
+          {
+            title: "Camino de Vida",
+            desc: "Lo que viniste a ser. El sendero profundo que te alinea con tu propósito central.",
+            icon: "🛤️",
+            color: "border-[#e6b866]",
+          },
+          {
+            title: "Esencia",
+            desc: "La vibración más elevada de tu ser. El potencial que despierta cuando vives en plenitud.",
+            icon: "👑",
+            color: "border-[#B11252]",
+          },
+          {
+            title: "Crisis de Ciclo Corto",
+            desc: "Energía que has sobreexpresado en otras vidas. Un impulso que tiende a repetirse con intensidad.",
+            icon: "⚡",
+            color: "border-amber-500",
+          },
+          {
+            title: "Crisis de Ciclo Largo",
+            desc: "Energía reprimida o bloqueada en tu historia kármica. Un potencial olvidado a recuperar.",
+            icon: "🗝️",
+            color: "border-slate-500",
+          },
+          {
+            title: "Misión de Infancia",
+            desc: "El aprendizaje esencial de tus primeros años y la energía que viniste a desarrollar desde tu nacimiento.",
+            icon: "🌱",
+            color: "border-emerald-500",
+          },
+          {
+            title: "Misión de Adolescencia",
+            desc: "El impulso evolutivo de tu juventud. La vibración que guía tus elecciones al ir al mundo.",
+            icon: "🦅",
+            color: "border-cyan-600",
+          },
         ].map((item, index) => (
-          <div class={`group bg-[#f9f7f5]/80 backdrop-blur-sm p-6 rounded-2xl border-t-4 ${item.color} shadow-sm hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-1`}>
+          <div
+            class={`group bg-[#f9f7f5]/80 backdrop-blur-sm p-6 rounded-2xl border-t-4 ${item.color} shadow-sm hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-1`}
+          >
             <div class="flex items-center gap-3 mb-3">
-              <span class="text-2xl opacity-80 group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-              <h4 class="font-serif font-semibold text-slate-800 text-lg">{item.title}</h4>
+              <span class="text-2xl opacity-80 group-hover:scale-110 transition-transform duration-300">
+                {item.icon}
+              </span>
+              <h4 class="font-serif font-semibold text-slate-800 text-lg">
+                {item.title}
+              </h4>
             </div>
             <p class="text-slate-600 font-sans text-sm font-medium leading-relaxed">
               {item.desc}
@@ -48,58 +129,142 @@
     </div>
 
     <!-- Significado Árbol de la Vida -->
-    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+    <div
+      class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden"
+    >
       <!-- Decoración interior oscura -->
-      <div class="absolute top-0 right-0 w-64 h-64 bg-[#B11252] rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
-      <div class="absolute bottom-0 left-0 w-64 h-64 bg-[#e6b866] rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-[#B11252] rounded-full blur-[100px] opacity-20 pointer-events-none"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 w-64 h-64 bg-[#e6b866] rounded-full blur-[100px] opacity-20 pointer-events-none"
+      >
+      </div>
 
       <div class="relative z-10">
-        <h3 class="text-2xl md:text-3xl font-serif text-[#e6b866] mb-4 text-center">¿Qué significan estos números según la Cábala?</h3>
-        <p class="text-slate-300 font-sans font-medium text-center mb-10 max-w-3xl mx-auto">
-          Cada número de tu mapa numerológico corresponde a un <strong class="text-white font-medium">sendero específico del Árbol de la Vida</strong> (Sefirot), revelando dimensiones concretas de tu identidad.
+        <h3
+          class="text-2xl md:text-3xl font-serif text-[#e6b866] mb-4 text-center"
+        >
+          ¿Qué significan estos números según la Cábala?
+        </h3>
+        <p
+          class="text-slate-300 font-sans font-medium text-center mb-10 max-w-3xl mx-auto"
+        >
+          Cada número de tu mapa numerológico corresponde a un <strong
+            class="text-white font-medium"
+            >sendero específico del Árbol de la Vida</strong
+          > (Sefirot), revelando dimensiones concretas de tu identidad.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
           <div class="space-y-6">
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Nombre (Esfera de Yesod)</h5>
-              <p class="text-slate-400 font-medium text-sm">La identidad en el inconsciente familiar y la base emocional.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Nombre (Esfera de Yesod)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                La identidad en el inconsciente familiar y la base emocional.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">1º Apellido (Esfera de Hod)</h5>
-              <p class="text-slate-400 font-medium text-sm">Energía paterna, capacidad de estructurar y comunicarte.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                1º Apellido (Esfera de Hod)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Energía paterna, capacidad de estructurar y comunicarte.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">2º Apellido (Esfera de Netzach)</h5>
-              <p class="text-slate-400 font-medium text-sm">Herencia materna, sensibilidad, deseo e intuición en acción.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                2º Apellido (Esfera de Netzach)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Herencia materna, sensibilidad, deseo e intuición en acción.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Día (Esfera de Tiferet)</h5>
-              <p class="text-slate-400 font-medium text-sm">El centro de equilibrio, la búsqueda de armonía espiritual.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Día (Esfera de Tiferet)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                El centro de equilibrio, la búsqueda de armonía espiritual.
+              </p>
             </div>
           </div>
           <div class="space-y-6">
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Mes (Esfera de Gevurah)</h5>
-              <p class="text-slate-400 font-medium text-sm">Factor kármico, límites, pruebas y memorias a transformar.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Mes (Esfera de Gevurah)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Factor kármico, límites, pruebas y memorias a transformar.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Año (Esfera de Jesed)</h5>
-              <p class="text-slate-400 font-medium text-sm">Impulso natural hacia la expansión y el aprendizaje.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Año (Esfera de Jesed)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Impulso natural hacia la expansión y el aprendizaje.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Carácter (Esfera de Binah)</h5>
-              <p class="text-slate-400 font-medium text-sm">La forma en que das forma a tu experiencia cuando estás en equilibrio.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Carácter (Esfera de Binah)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                La forma en que das forma a tu experiencia cuando estás en
+                equilibrio.
+              </p>
             </div>
             <div>
-              <h5 class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1">Camino (Esfera de Jokmah) & Esencia (Keter)</h5>
-              <p class="text-slate-400 font-medium text-sm">Tu propósito esencial y potencial vibratorio más elevado.</p>
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Camino (Esfera de Jokmah)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Tu propósito esencial.
+              </p>
+            </div>
+          </div>
+          
+          <div class="md:col-span-2 flex justify-center md:mt-2">
+            <div class="md:text-center">
+              <h5
+                class="text-[#e6b866] font-semibold text-sm tracking-wider uppercase mb-1"
+              >
+                Esencia (Keter)
+              </h5>
+              <p class="text-slate-400 font-medium text-sm">
+                Tu potencial vibratorio más elevado.
+              </p>
             </div>
           </div>
         </div>
 
         <div class="mt-12 text-center">
-          <a href="https://sabiduriadealma.com/lecturas-cabalisticas-una-mirada-al-alma-a-traves-del-arbol-de-la-vida" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-slate-900 font-medium px-8 py-3 rounded-lg hover:bg-[#e6b866] transition-colors duration-300">
+          <a
+            href="https://sabiduriadealma.com/lecturas-cabalisticas-una-mirada-al-alma-a-traves-del-arbol-de-la-vida"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-white text-slate-900 font-medium px-8 py-3 rounded-lg hover:bg-[#e6b866] transition-colors duration-300"
+          >
             Solicitar Interpretación Completa
           </a>
         </div>

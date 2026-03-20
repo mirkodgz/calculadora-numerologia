@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ResultadosCard from '../components/ResultadosCard.svelte';
 import BaseDataCard from '../components/BaseDataCard.svelte';
+import ExportarPDF from '../components/ExportarPDF.svelte';
 import CursoUpsell from '../components/CursoUpsell.astro';
 import ContinuaAprendizaje from '../components/ContinuaAprendizaje.astro';
 import { verifyNumerologyToken } from '../lib/jwt';
@@ -314,34 +315,32 @@ if (token) {
       </div>
     ) : (
       <div class="max-w-5xl mx-auto">
-        <header class="text-center mb-16">
-          <h2 class="text-sm font-semibold text-amber-600 tracking-widest uppercase mb-3">Tu Mapa Personal</h2>
-          <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4 capitalize">Hola, {userPayload.nombre}</h1>
-          <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto mb-6">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
-          
-          <button onclick="navigator.clipboard.writeText(window.location.href); alert('¡Enlace copiado al portapapeles! Ya puedes compartir tus resultados.')" class="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-medium py-2 px-6 rounded-full transition-colors text-sm shadow-sm cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-            Compartir mis resultados
-          </button>
-        </header>
+        <div id="reporte-numerologico" class="relative bg-slate-50 overflow-hidden pb-10">
+          <img src="/watermark.png" class="watermark-pdf hidden absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-auto pointer-events-none z-0 mix-blend-multiply" alt="Logo Árbol Kabala" />
+          <div class="relative z-10 px-4 sm:px-8 pt-8 print:px-0 print:pt-0">
+            <header class="text-center mb-16">
+              <h2 class="text-sm font-semibold text-amber-600 tracking-widest uppercase mb-3">Tu Mapa Personal</h2>
+              <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4 capitalize">Hola, {userPayload.nombre}</h1>
+              <p class="text-xl text-gray-500 font-medium max-w-2xl mx-auto mb-6">A continuación se revelan los secretos numéricos ocultos en tu fecha de nacimiento y tu nombre.</p>
+            </header>
 
         
         
         <!-- DATOS PERSONALES -->
         <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Datos Personales</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 print:grid-cols-3 print:gap-4 gap-6 mb-12">
           <BaseDataCard titulo={resultados.datosPersonales.nombre.texto} subtitulo="Nombre" numero={resultados.datosPersonales.nombre.valor} oculto={resultados.datosPersonales.nombre.oculto} familia={resultados.datosPersonales.nombre.info.familia} descripcion={resultados.datosPersonales.nombre.info.desc} />
           <BaseDataCard titulo={resultados.datosPersonales.apellido1.texto} subtitulo="1° Apellido" numero={resultados.datosPersonales.apellido1.valor} oculto={resultados.datosPersonales.apellido1.oculto} familia={resultados.datosPersonales.apellido1.info.familia} descripcion={resultados.datosPersonales.apellido1.info.desc} />
           {resultados.datosPersonales.apellido2 && (
             <BaseDataCard titulo={resultados.datosPersonales.apellido2.texto} subtitulo="2° Apellido" numero={resultados.datosPersonales.apellido2.valor} oculto={resultados.datosPersonales.apellido2.oculto} familia={resultados.datosPersonales.apellido2.info.familia} descripcion={resultados.datosPersonales.apellido2.info.desc} />
           )}
-          <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} />
-          <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} />
-          <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} />
+          <BaseDataCard titulo={resultados.datosPersonales.dia.texto} subtitulo="Día" numero={resultados.datosPersonales.dia.valor} familia={resultados.datosPersonales.dia.info.familia} descripcion={resultados.datosPersonales.dia.info.desc} />
+          <BaseDataCard titulo={resultados.datosPersonales.mes.texto} subtitulo="Mes" numero={resultados.datosPersonales.mes.valor} familia={resultados.datosPersonales.mes.info.familia} descripcion={resultados.datosPersonales.mes.info.desc} />
+          <BaseDataCard titulo={resultados.datosPersonales.anio.texto} subtitulo="Año" numero={resultados.datosPersonales.anio.valor} familia={resultados.datosPersonales.anio.info.familia} descripcion={resultados.datosPersonales.anio.info.desc} />
         </div>
 
         <h3 class="text-2xl font-serif text-gray-900 text-center mb-8 pb-4 border-b border-gray-200">Cálculos Kármicos y Compuestos</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 print:gap-6 gap-8 mb-16">
 
           <ResultadosCard 
             titulo="Número de Alma" 
@@ -393,8 +392,14 @@ if (token) {
             
           />
         </div>
+          </div>
+        </div>
 
-        <div class="mt-16 w-full -mx-4 sm:mx-0 sm:w-auto">
+        <div class="no-pdf">
+          <ExportarPDF client:load data={resultados} nombre={userPayload.nombre} />
+        </div>
+
+        <div class="mt-8 w-full -mx-4 sm:mx-0 sm:w-auto no-pdf">
           <CursoUpsell />
           <ContinuaAprendizaje />
         </div>
@@ -402,3 +407,59 @@ if (token) {
     )}
   </main>
 </Layout>
+
+<style is:global>
+  @media print {
+    @page {
+      margin: 5mm;
+    }
+
+    /* Ocultar botones e interfaces extra durante la impresión */
+    .no-pdf, header nav, footer, button {
+      display: none !important;
+    }
+
+    /* Mostrar la marca de agua y forzar su posición en toda del documento */
+    .watermark-pdf {
+      display: block !important;
+      opacity: 0.08 !important;
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 600px !important;
+      z-index: 0 !important;
+    }
+
+    /* Forzar que los fondos coloridos y sombras se vean bien en PDF */
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      background-color: #f8fafc !important;
+    }
+
+    #reporte-numerologico {
+      background-color: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* Forzar a que las cajas de datos no se corten a la mitad en el cambio de página */
+    .grid > div {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+  }
+
+  /* 🔥 FIX BUG de Dom-to-Image con bordes fantasmas de Tailwind CSS 4 */
+  .pdf-export-mode * {
+    border-style: none !important; /* Deshabilita el border-style:solid default que Tailwind pone a todos los elementos */
+  }
+  .pdf-export-mode .border, 
+  .pdf-export-mode .border-b, 
+  .pdf-export-mode .border-t, 
+  .pdf-export-mode .border-l, 
+  .pdf-export-mode .border-r {
+    border-style: solid !important; /* Solo dejamos reactivado el estilo en elementos que sí tienen clases de border activas */
+  }
+</style>
