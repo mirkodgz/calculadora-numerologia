@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Sesión de Orientación Gratuita | Sabiduría de Alma">
+  <main class="min-h-screen py-10 sm:py-20 px-4 sm:px-6 relative flex flex-col items-center w-full max-w-[100vw] overflow-x-hidden">
+    
+    <!-- Decoración de fondo -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div class="absolute -top-20 -right-20 w-96 h-96 bg-linear-to-br from-[#e6b866]/10 to-transparent rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-10 -left-10 w-80 h-80 bg-linear-to-tr from-[#B11252]/10 to-transparent rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-4xl w-full mx-auto relative z-10 transition-all duration-500">
+      
+      <!-- Cabecera -->
+      <div class="text-center mb-12 animate-[fadeInUp_1s_ease-out]">
+        <span class="inline-block py-1.5 px-4 rounded-full bg-[#a61c47]/10 text-[#a61c47] text-xs sm:text-sm font-bold tracking-widest uppercase mb-6 shadow-sm border border-[#a61c47]/20">
+          Sesión de Regalo • 15 Minutos
+        </span>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-slate-800 mb-6 tracking-tight leading-tight">
+          Sesión de Orientación <span class="italic text-[#a61c47]">Gratuita</span>
+        </h1>
+        <p class="text-slate-600 font-sans text-lg sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+          Un espacio privado y confidencial diseñado para escuchar tu situación actual, conocerte mejor y descubrir cómo nuestra metodología puede acompañar tu proceso o ayudarte a resolver tus bloqueos.
+        </p>
+      </div>
+      
+      <!-- Contenedor del Calendario -->
+      <div class="w-full relative z-20 mt-4">
+        <iframe 
+          src="https://api.leadconnectorhq.com/widget/booking/4q3xa0jy9lGeS3YrBKKJ" 
+          style="width: 100%; min-height: 800px; border:none; overflow-y: auto;" 
+          scrolling="auto" 
+          id="4q3xa0jy9lGeS3YrBKKJ_1774287466128"
+          title="Reserva de Sesión de Orientación"
+        ></iframe>
+        <br>
+        <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript" is:inline></script>
+      </div>
+      
+      <!-- Garantía/Beneficios Post-Calendario -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 opacity-90 pb-16">
+        <div class="flex items-center gap-3 bg-white/60 px-5 py-3 rounded-full border border-slate-200/60 shadow-sm backdrop-blur-sm">
+          <div class="w-8 h-8 rounded-full bg-[#e6b866]/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#c15f3c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-slate-700 font-sans tracking-wide">100% Online</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/60 px-5 py-3 rounded-full border border-slate-200/60 shadow-sm backdrop-blur-sm">
+          <div class="w-8 h-8 rounded-full bg-[#B11252]/10 flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#B11252]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-slate-700 font-sans tracking-wide">Espacio Seguro Privado</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/60 px-5 py-3 rounded-full border border-slate-200/60 shadow-sm backdrop-blur-sm">
+          <div class="w-8 h-8 rounded-full bg-[#e6b866]/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#c15f3c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <span class="text-xs sm:text-sm font-bold text-slate-700 font-sans tracking-wide">Cero Compromiso</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Botón de WhatsApp Flotante -->
+  <a 
+    href="https://wa.me/34629372944" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-[60px] h-[60px] bg-[#25D366] text-white rounded-full shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)] transition-all duration-300 group"
+    aria-label="Contactar por WhatsApp"
+  >
+    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.031 2.01c-5.52.016-10 4.512-10 10.033A9.974 9.974 0 003.354 17.2L2 22l4.905-1.285a9.964 9.964 0 005.126 1.411c5.524 0 10-4.484 10-10.01 0-5.524-4.48-10.015-10.004-10.016v.01zm5.553 14.155c-.244.685-1.439 1.303-1.954 1.365-.515.061-1.12.164-3.644-.881-3.033-1.258-4.992-4.341-5.135-4.536-.143-.195-1.226-1.636-1.226-3.12 0-1.483.775-2.215 1.041-2.498.266-.282.592-.352.796-.352.204 0 .408.01.592.01.184.01.429-.07.674.526.245.596.837 2.049.919 2.213.082.164.143.353.041.56-.102.206-.163.342-.327.525-.163.184-.347.41-.49.526-.163.123-.347.266-.143.618.204.352.919 1.517 1.98 2.463 1.368 1.218 2.532 1.595 2.879 1.76.347.164.55.143.755-.082.204-.225.877-1.026 1.123-1.378.245-.352.49-.292.817-.164.327.128 2.063.974 2.41 1.15.347.174.572.26.654.408.082.149.082.86-.163 1.545z"/>
+    </svg>
+    <!-- Tooltip -->
+    <span class="absolute right-[75px] bg-[#FCFBF9] text-slate-800 text-sm font-medium px-4 py-2 rounded-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all shadow-md pointer-events-none hidden sm:block font-sans whitespace-nowrap border border-slate-200">
+      ¿Tienes dudas? ¡Escríbenme!
+    </span>
+  </a>
+
+</Layout>
+
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

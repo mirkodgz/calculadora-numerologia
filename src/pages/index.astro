@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PopupSesion from "../components/PopupSesion.svelte";
 import Hero from "../components/Hero.astro";
 import Faq from "../components/Faq.svelte";
 import Testimoniales from "../components/Testimoniales.astro";
@@ -152,4 +153,5 @@ import SplashScreen from "../components/SplashScreen.astro";
 
     <Testimoniales />
   </main>
+  <PopupSesion client:load />
 </Layout>

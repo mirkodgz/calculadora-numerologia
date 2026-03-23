@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PopupSesion from '../components/PopupSesion.svelte';
 import ResultadosCard from '../components/ResultadosCard.svelte';
 import BaseDataCard from '../components/BaseDataCard.svelte';
 import ExportarPDF from '../components/ExportarPDF.svelte';
@@ -406,6 +407,7 @@ if (token) {
       </div>
     )}
   </main>
+  <PopupSesion client:load />
 </Layout>
 
 <style is:global>
