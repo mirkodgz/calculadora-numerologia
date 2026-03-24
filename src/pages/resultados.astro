@@ -6,6 +6,7 @@ import BaseDataCard from '../components/BaseDataCard.svelte';
 import ExportarPDF from '../components/ExportarPDF.svelte';
 import CursoUpsell from '../components/CursoUpsell.astro';
 import ContinuaAprendizaje from '../components/ContinuaAprendizaje.astro';
+import SignificadoNumeros from '../components/SignificadoNumeros.astro';
 import { verifyNumerologyToken } from '../lib/jwt';
 import { analizarNombre, analizarFecha, obtenerFamilia, sumarDigitos, sumarDigitosRecursivoSteps, determinarVersionCastellano, obtenerInterpretacion } from '../lib/numerology/calculator';
 // En un proyecto real, estas funciones de lógica avanzada (calcularBloqueConFamilias) estarían en calculator.ts
@@ -398,6 +399,10 @@ if (token) {
 
         <div class="no-pdf">
           <ExportarPDF client:load data={resultados} nombre={userPayload.nombre} />
+        </div>
+
+        <div class="mt-8 mb-8 w-full -mx-4 sm:mx-0 sm:w-auto no-pdf">
+          <SignificadoNumeros />
         </div>
 
         <div class="mt-8 w-full -mx-4 sm:mx-0 sm:w-auto no-pdf">
